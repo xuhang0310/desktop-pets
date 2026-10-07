@@ -8,6 +8,8 @@
     "test": "electron test-shot.js --no-sandbox",
     "test:native": "electron native-check.js --no-sandbox",
     "test:interaction": "electron interaction-check.js --no-sandbox",
+    "test:chat": "node chat-check.js",
+    "test:chat-ui": "electron chat-ui-check.js --no-sandbox",
     "test:voice": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/voice-host.ps1 -ElectronPath node_modules/electron/dist/electron.exe -AppDirectory . -Probe"
   },
   "dependencies": {

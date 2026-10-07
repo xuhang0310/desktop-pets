@@ -1,0 +1,442 @@
+{
+  "settings": {
+    "model": "IndexTTS-2",
+    "checkpoint": "checkpoints_2",
+    "selected_version": "A",
+    "reference_interval_seconds": [
+      1.74,
+      4.98
+    ],
+    "fp16": true,
+    "use_qwen_emo": false,
+    "use_cuda_kernel": false,
+    "use_deepspeed": false,
+    "use_random": false,
+    "max_text_tokens_per_segment": 120,
+    "seed_before_model_load": 20261007,
+    "filter": "loudnorm=I=-18:TP=-2:LRA=7",
+    "sample_rate": 22050,
+    "pitch_tempo_eq_changes": false
+  },
+  "reference_sha256": "3e7cdf320ff05cb18603c9c1a409b56021feebeb3330fffc76b536c45aff54bd",
+  "samples": {
+    "hello-1": {
+      "text": "鲸鲸！我是大肥鱼，也叫蒂普斯克。吃白米饭！",
+      "fingerprint": "d0b7adbe6d3c7bcb0841ad0249c28a951005dce53fc58f73789151596c915db2",
+      "source": "approved-a-batch-01",
+      "wav": {
+        "seconds": 3.611,
+        "sample_rate": 22050,
+        "peak": 0.791015625,
+        "rms": 0.14130574254930525,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 3.611,
+        "sample_rate": 22050,
+        "peak": 0.7905139327049255,
+        "rms": 0.14137818304243596,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": null,
+      "wav_sha256": "e366a55a0b4625f8c6c0838630c6fd9c36bd7ab9ae7f85e299d85087f71d7f95",
+      "mp3_sha256": "0a0992dbe4543c534f138cd480806700de175df142ff3b53cc8a3cf67438b9d3"
+    },
+    "pat-1": {
+      "text": "唔，舒服。再摸一下嘛，鲸鲸。",
+      "fingerprint": "21fda46f6a80f23da564a749f0fbdf5a8e7a7aad5c358b74d0b9f46e291b9bab",
+      "source": "approved-a-batch-01",
+      "wav": {
+        "seconds": 2.949,
+        "sample_rate": 22050,
+        "peak": 0.778564453125,
+        "rms": 0.12391182282797636,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 2.949,
+        "sample_rate": 22050,
+        "peak": 0.7814732789993286,
+        "rms": 0.12378786607188355,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": null,
+      "wav_sha256": "752649fa97efa63bd87d83f9266b29b1c7741159f65d6e1269771232de604997",
+      "mp3_sha256": "40e85c6fbb55f48836d574266d16813662167cd4142578ec9bb3cef619330afb"
+    },
+    "poke-3": {
+      "text": "你天天跟GPT聊天，不跟你好了！",
+      "fingerprint": "d59befd9433f0ee33a0636b34b71b42648cf07bbdb6a03f4d57a79910b851c8b",
+      "source": "user-selected-A-original-quote",
+      "wav": {
+        "seconds": 3.007,
+        "sample_rate": 22050,
+        "peak": 0.719970703125,
+        "rms": 0.13048171404192438,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 3.007,
+        "sample_rate": 22050,
+        "peak": 0.7129144072532654,
+        "rms": 0.13044727901257222,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": null,
+      "wav_sha256": "733bc85ae0a30fb1afe1cd2eecc16986e13260d35be0a46ed5a031295a749c71",
+      "mp3_sha256": "e9ad569bb1abe8edb8840abe53e499df823a2b52e5b450a3fc52daf9301af0bd"
+    },
+    "rice": {
+      "text": "吃白米饭，鲸鲸！米饭吃饱，游戏打好，干活的事一会儿再想。",
+      "fingerprint": "720b5fab14c53bf30c1d2d13a71e1424f22e259bd30d94fef135bd44737960e8",
+      "source": "approved-a-batch-01",
+      "wav": {
+        "seconds": 5.271,
+        "sample_rate": 22050,
+        "peak": 0.7532958984375,
+        "rms": 0.12490248148280592,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 5.271,
+        "sample_rate": 22050,
+        "peak": 0.7521814703941345,
+        "rms": 0.12496169605056347,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": null,
+      "wav_sha256": "ac1f99cce1f5b603ca1cdfdc0589d640d5131cc981fcc456296ee81d2c8ae750",
+      "mp3_sha256": "ee3bc453183c9d82ffc955522b93cea4d10e2b538c3d715550d3eb6672fe693b"
+    },
+    "hello-2": {
+      "text": "你来啦！吃白米饭，鲸鲸。今天想摸鱼，还是玩游戏呀？",
+      "fingerprint": "b0ceed2cf329b42a17756c70d6d95917c0951ba53cb323b23e5f7a6f16e69d53",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 4.865,
+        "sample_rate": 22050,
+        "peak": 0.792816162109375,
+        "rms": 0.13220148453381397,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 4.865,
+        "sample_rate": 22050,
+        "peak": 0.7909030914306641,
+        "rms": 0.13223880312278202,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 40.65,
+      "wav_sha256": "8628418ce51ba155e132b0048cf739f92a363e5a00b2375d8af16dd437c1bfa1",
+      "mp3_sha256": "db2ca3a2fef04d48807338c7822c5159d7141a6e8a3a9ad79dae579bb8fb8a6b"
+    },
+    "pat-2": {
+      "text": "嘿嘿，大肥鱼被摸得不想干活了。",
+      "fingerprint": "dffb6155b74a80460022499a4a12d323070dd6039d5251a5af913673a3672722",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 3.03,
+        "sample_rate": 22050,
+        "peak": 0.563079833984375,
+        "rms": 0.13053409772356356,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 3.03,
+        "sample_rate": 22050,
+        "peak": 0.572574257850647,
+        "rms": 0.13050229712301167,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 12.354,
+      "wav_sha256": "3d00431abd1c23b7ffcc9c63849f046d7bb0bbf7a7bd223136259e41e3010940",
+      "mp3_sha256": "cd7bec9dacb7e5d58f4a8a14ecba07552d2a3f3179c8750c5225d6938faad669"
+    },
+    "poke-1": {
+      "text": "哎呀，别戳啦。游戏都要被你戳输了，鲸鲸。",
+      "fingerprint": "6352369c091c2f1e687b8d953a0eb077d72b80e1099ec0435c126547478acd66",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 4.203,
+        "sample_rate": 22050,
+        "peak": 0.643035888671875,
+        "rms": 0.126181165714735,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 4.203,
+        "sample_rate": 22050,
+        "peak": 0.6395183205604553,
+        "rms": 0.12612703531482233,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 18.881,
+      "wav_sha256": "59025e20c8a3b4289b4a72aa18fffbcd3524d37ed748e29f8c0e18d7cb26e6e3",
+      "mp3_sha256": "ec65c9c7bb551eda17f98851e3ece559742e28f78adea748547cfaad2b4d76ae"
+    },
+    "poke-2": {
+      "text": "我在呢。要不这活儿让千问干？我先吃白米饭。",
+      "fingerprint": "983d856507dc6ca98a6ad7c764138098038c0ade52e3704d9b9929adf5555175",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 3.448,
+        "sample_rate": 22050,
+        "peak": 0.7012939453125,
+        "rms": 0.1332943355976787,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 3.448,
+        "sample_rate": 22050,
+        "peak": 0.7010461091995239,
+        "rms": 0.13333357584523597,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 12.323,
+      "wav_sha256": "691203cd404c2b8da32466d9acfb71b89ea67ab761183b7a6cfe067c06e923ca",
+      "mp3_sha256": "bfbcd2d9e81a9bb3340069250aa5534eb7d742149d89052ffa03a51a3b15d76d"
+    },
+    "dance": {
+      "text": "吃白米饭，鲸鲸！跳两下就好，跳多了会饿。",
+      "fingerprint": "fa983dd5b77f534a3da96bf4051211f90876cfb437ea43b0f3be6636e9527546",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 4.087,
+        "sample_rate": 22050,
+        "peak": 0.79449462890625,
+        "rms": 0.13680775931748845,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 4.087,
+        "sample_rate": 22050,
+        "peak": 0.7886917591094971,
+        "rms": 0.13689706754061323,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 14.221,
+      "wav_sha256": "1d7838ef74c6a08efa15ffc5faf2852fab459a0ba1081baf1f0080b07639bb4c",
+      "mp3_sha256": "03388618c4f6d0caba03c7ce148cd8462ace2b6a874401d5f83a643ab7ed8c5d"
+    },
+    "cheer": {
+      "text": "好耶，干完啦！现在可以开游戏了吧？鲸鲸！",
+      "fingerprint": "a8945c55e60aa7e15299cbdeaa7693259a6e5b656f18f8b6c77d0c106cbef82a",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 3.413,
+        "sample_rate": 22050,
+        "peak": 0.7501220703125,
+        "rms": 0.12616621989910795,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 3.413,
+        "sample_rate": 22050,
+        "peak": 0.751962423324585,
+        "rms": 0.1262413397477383,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 28.741,
+      "wav_sha256": "25afb4d84466fbc48894df84b16c81c2c5004dd99028b01a5f5d7735e6bfb716",
+      "mp3_sha256": "f8ae0cde1fa9682c1aff6a73257c2b0eda91150a1042eb9b6f46f13292fc6ca9"
+    },
+    "sleep": {
+      "text": "困了困了。活儿先记着，我梦里去找豆包帮忙。",
+      "fingerprint": "99e8dfc18b2cd6d2bde69b5d0e364429fd63cf278d95be3a4349a531cc74a8d3",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 3.889,
+        "sample_rate": 22050,
+        "peak": 0.79364013671875,
+        "rms": 0.15065628457214983,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 3.889,
+        "sample_rate": 22050,
+        "peak": 0.7955642342567444,
+        "rms": 0.15065686173303078,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 29.821,
+      "wav_sha256": "a063e28e3355ef80dcdfe8797ec300790c01dfbb53c6c773c99190deab94cfbb",
+      "mp3_sha256": "4cd9f079656e81d3136907e11180d872c5431ec6a75c5033d19c5eb8c6d45ba0"
+    },
+    "wake": {
+      "text": "唔，大肥鱼醒啦。是开饭了，还是要开游戏？",
+      "fingerprint": "bec9535eb13b9571defffbd2306cd5cd1b3b265aaaf0d3124cc4b54edc5ff3c2",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 4.133,
+        "sample_rate": 22050,
+        "peak": 0.753387451171875,
+        "rms": 0.12485508863035619,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 4.133,
+        "sample_rate": 22050,
+        "peak": 0.7553754448890686,
+        "rms": 0.12490494114578467,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 17.906,
+      "wav_sha256": "306a0497a6e5cf0fe709e7ccd8566216cd006a3486bf9ce683db0de913f1e032",
+      "mp3_sha256": "593cfc3b3aaa086cd47858942a8c3b044a4fd8ca6fa6b215dbc54ec14faadbbd"
+    },
+    "care": {
+      "text": "累了就歇会儿嘛。吃白米饭，鲸鲸。有我陪你摸鱼。",
+      "fingerprint": "e68870e3cd2f23e13a5ae7da6e61d57b746f95c0df79ccda12eb3ce2902f0c61",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 4.563,
+        "sample_rate": 22050,
+        "peak": 0.63995361328125,
+        "rms": 0.13097314489616857,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 4.563,
+        "sample_rate": 22050,
+        "peak": 0.6448379158973694,
+        "rms": 0.13109448422723197,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 20.57,
+      "wav_sha256": "6d56a7b5c3c2634c3be80d93c330d52b3b681ed499a36bbace839379ac07a047",
+      "mp3_sha256": "7880e23f42baa843820d7bbe9b1a988ccf40e19c71c7061a1b7abcfc3e327f74"
+    },
+    "focus": {
+      "text": "好吧，陪你专注一会儿。虽然我更想把活儿外包给千问。鲸鲸，加油！",
+      "fingerprint": "3170d4909c1c2d06a5dc698eeb15dbb5cbea132817e026b1998ba69834d5ac7c",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 5.631,
+        "sample_rate": 22050,
+        "peak": 0.674468994140625,
+        "rms": 0.126347846891369,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 5.631,
+        "sample_rate": 22050,
+        "peak": 0.6810808181762695,
+        "rms": 0.12635748918202638,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 43.101,
+      "wav_sha256": "4d14705e2eb2ff33145ff4edb15a870e40a0fe5355f2744176c98035a24767ad",
+      "mp3_sha256": "573abe6e8f0b55ebd32bd0a60b16ee83e8bdc6ff9938cc6048d26ac1a6e41e7e"
+    },
+    "pause": {
+      "text": "暂停啦！让我躺一会儿，顺便想想晚上玩什么游戏。",
+      "fingerprint": "a5797c2a8d3adc712ea43486afb4af6745487f08183160a2040441ed9248b16c",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 4.365,
+        "sample_rate": 22050,
+        "peak": 0.71484375,
+        "rms": 0.12893876499511858,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 4.365,
+        "sample_rate": 22050,
+        "peak": 0.7125784158706665,
+        "rms": 0.128963126231583,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 32.347,
+      "wav_sha256": "ca83819ff42ee9b31ce457358fe9e1f9b5c36cacdb4a982f63f8af73b9b5ca34",
+      "mp3_sha256": "68af18c695bcc1c6ae2ee2dd67c7c8d5c9b04f939014805558518570bf842e2e"
+    },
+    "open": {
+      "text": "清单打开啦。这么多活儿，要不问问千问和豆包？",
+      "fingerprint": "047583509cda2ccf30d6e939620d1ef795e7e3c6d1e40095a34857f57287e0fc",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 3.843,
+        "sample_rate": 22050,
+        "peak": 0.78765869140625,
+        "rms": 0.14066481508606352,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 3.843,
+        "sample_rate": 22050,
+        "peak": 0.7866564989089966,
+        "rms": 0.1407095243479743,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 29.332,
+      "wav_sha256": "1751374b0956484a7a491b0cb99af6d9bf2db341274e024b4cc5c90882a4d36e",
+      "mp3_sha256": "feb8ccda7f45b14b35d9854d62b540950d808cd5d144fe2d7fb29b0f087910aa"
+    },
+    "thanks": {
+      "text": "嘿嘿，不用谢。下次请我吃白米饭就好，鲸鲸。",
+      "fingerprint": "7f80eb8aa439a525c20a30257f068563dcd12730a266d332f5ba2e82aced67b4",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 4.389,
+        "sample_rate": 22050,
+        "peak": 0.673065185546875,
+        "rms": 0.12507847305873565,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 4.389,
+        "sample_rate": 22050,
+        "peak": 0.6795592904090881,
+        "rms": 0.12508130712431564,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 30.443,
+      "wav_sha256": "6559ed07a416a004c797e2335c05931fa4cad1b252031411fa18e074777c0a60",
+      "mp3_sha256": "4471f69666a24c6904e5abcf5879608507636b1a7d3a044c3d68a96293cd9622"
+    },
+    "who": {
+      "text": "我是大肥鱼，也叫蒂普斯克。爱玩游戏，懒得干活，有活儿就想找千问和豆包。吃白米饭，鲸鲸！",
+      "fingerprint": "1cfe5d7ea82c7480b4014a4ba18bc3be6b126e4ecf2e7891417a8df44d846746",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 8.626,
+        "sample_rate": 22050,
+        "peak": 0.720184326171875,
+        "rms": 0.12358788715672314,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 8.626,
+        "sample_rate": 22050,
+        "peak": 0.7200216054916382,
+        "rms": 0.12358236793200257,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 73.559,
+      "wav_sha256": "082a000cccc7d91f688723b283e19bc8691ea279addb6e20aa6928104c6d5555",
+      "mp3_sha256": "e0ccbd8452cac7a57afe0ae4b937f5dbdb0514f76a0f3d3a0ad15ce51fbac01f"
+    },
+    "game": {
+      "text": "游戏，启动！不过你的待办还在那儿，别像我一样偷懒太久哦。",
+      "fingerprint": "aeaa7e1525713e576f7fff7e1078712fdb6051e8e840f2fc1cb2de1ce0efd832",
+      "source": "generated-with-approved-A-settings",
+      "wav": {
+        "seconds": 5.271,
+        "sample_rate": 22050,
+        "peak": 0.5999755859375,
+        "rms": 0.12818712421000975,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 5.271,
+        "sample_rate": 22050,
+        "peak": 0.599555492401123,
+        "rms": 0.12815418294760428,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 41.476,
+      "wav_sha256": "5b5098c227999cfbc2ff4c5c56e14a3260f085d82619431c0b7c01751d4ecd15",
+      "mp3_sha256": "6f54fc26e0c726aa8d76644c08c670894554da20373bffcfdcb7e2504c41f3b2"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "selected_voice": "A",
+  "newly_generated_count": 3,
+  "reused_approved_count": 1,
+  "production_replaced": false,
+  "lines": [
+    {
+      "id": "hello-1",
+      "text": "鲸鲸！我是大肥鱼，也叫蒂普斯克。吃白米饭！",
+      "action": "wave",
+      "review_status": "awaiting_user_audition",
+      "file": "hello-1.mp3"
+    },
+    {
+      "id": "pat-1",
+      "text": "唔，舒服。再摸一下嘛，鲸鲸。",
+      "action": "pat",
+      "review_status": "awaiting_user_audition",
+      "file": "pat-1.mp3"
+    },
+    {
+      "id": "rice",
+      "text": "吃白米饭，鲸鲸！米饭吃饱，游戏打好，干活的事一会儿再想。",
+      "action": "pat",
+      "review_status": "awaiting_user_audition",
+      "file": "rice.mp3"
+    },
+    {
+      "id": "poke-3",
+      "text": "你天天跟GPT聊天，不跟你好了！",
+      "action": "wave",
+      "review_status": "reused_from_user_selected_A",
+      "file": "poke-3.mp3",
+      "planned_trigger": "body-click random reply",
+      "sha256": "e9ad569bb1abe8edb8840abe53e499df823a2b52e5b450a3fc52daf9301af0bd"
+    }
+  ]
+}

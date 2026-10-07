@@ -33,8 +33,11 @@ button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--blue);
   padding: 11px 16px; border: 1px solid var(--line); border-radius: 18px 18px 18px 5px;
   background: var(--paper); box-shadow: 0 5px 15px -6px var(--shadow);
   cursor: pointer; text-align: left; color: var(--ink); line-height: 1.6;
-  transition: transform .2s, border-color .2s;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity .2s, transform .2s, border-color .2s, visibility 0s .2s;
 }
+.speech.is-visible { opacity: 1; visibility: visible; pointer-events: auto; transform: none; transition-delay: 0s; }
 .speech:hover { transform: translateY(-2px); border-color: var(--blue); }
 .speech::after {
   content: ""; position: absolute; left: 30px; bottom: -6px; width: 10px; height: 10px;

@@ -1,0 +1,102 @@
+{
+  "settings": {
+    "model": "IndexTTS-2",
+    "checkpoint": "checkpoints_2",
+    "selected_version": "A",
+    "reference_sha256": "3e7cdf320ff05cb18603c9c1a409b56021feebeb3330fffc76b536c45aff54bd",
+    "reference_interval_seconds": [
+      1.74,
+      4.98
+    ],
+    "fp16": true,
+    "use_qwen_emo": false,
+    "use_cuda_kernel": false,
+    "use_deepspeed": false,
+    "use_random": false,
+    "max_text_tokens_per_segment": 120,
+    "seed_before_model_load": 20261007,
+    "filter": "loudnorm=I=-18:TP=-2:LRA=7",
+    "sample_rate": 22050,
+    "pitch_tempo_eq_changes": false
+  },
+  "lines": [
+    {
+      "id": "hello-1",
+      "text": "鲸鲸！我是大肥鱼，也叫蒂普斯克。吃白米饭！",
+      "action": "wave"
+    },
+    {
+      "id": "pat-1",
+      "text": "唔，舒服。再摸一下嘛，鲸鲸。",
+      "action": "pat"
+    },
+    {
+      "id": "rice",
+      "text": "吃白米饭，鲸鲸！米饭吃饱，游戏打好，干活的事一会儿再想。",
+      "action": "pat"
+    }
+  ],
+  "production_replaced": false,
+  "samples": {
+    "hello-1": {
+      "text": "鲸鲸！我是大肥鱼，也叫蒂普斯克。吃白米饭！",
+      "wav": {
+        "seconds": 3.611,
+        "sample_rate": 22050,
+        "peak": 0.791015625,
+        "rms": 0.14130574254930525,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 3.611,
+        "sample_rate": 22050,
+        "peak": 0.7905139327049255,
+        "rms": 0.14137818304243596,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 35.122,
+      "wav_sha256": "e366a55a0b4625f8c6c0838630c6fd9c36bd7ab9ae7f85e299d85087f71d7f95",
+      "mp3_sha256": "0a0992dbe4543c534f138cd480806700de175df142ff3b53cc8a3cf67438b9d3"
+    },
+    "pat-1": {
+      "text": "唔，舒服。再摸一下嘛，鲸鲸。",
+      "wav": {
+        "seconds": 2.949,
+        "sample_rate": 22050,
+        "peak": 0.778564453125,
+        "rms": 0.12391182282797636,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 2.949,
+        "sample_rate": 22050,
+        "peak": 0.7814732789993286,
+        "rms": 0.12378786607188355,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 37.001,
+      "wav_sha256": "752649fa97efa63bd87d83f9266b29b1c7741159f65d6e1269771232de604997",
+      "mp3_sha256": "40e85c6fbb55f48836d574266d16813662167cd4142578ec9bb3cef619330afb"
+    },
+    "rice": {
+      "text": "吃白米饭，鲸鲸！米饭吃饱，游戏打好，干活的事一会儿再想。",
+      "wav": {
+        "seconds": 5.271,
+        "sample_rate": 22050,
+        "peak": 0.7532958984375,
+        "rms": 0.12490248148280592,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 5.271,
+        "sample_rate": 22050,
+        "peak": 0.7521814703941345,
+        "rms": 0.12496169605056347,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 25.049,
+      "wav_sha256": "ac1f99cce1f5b603ca1cdfdc0589d640d5131cc981fcc456296ee81d2c8ae750",
+      "mp3_sha256": "ee3bc453183c9d82ffc955522b93cea4d10e2b538c3d715550d3eb6672fe693b"
+    }
+  }
+}

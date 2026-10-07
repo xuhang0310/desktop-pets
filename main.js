@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, screen, globalShortcut, Tray, Menu, nativeImage } = require('electron');
+const { app, BrowserWindow, ipcMain, screen, globalShortcut, Tray, Menu, nativeImage, safeStorage } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { execFileSync } = require('child_process');
@@ -76,8 +76,11 @@ function windowAlive() { return !!win && !win.isDestroyed(); }
 const voiceService = require('./voice-service').createVoiceService({
   onState: state => { if (windowAlive()) win.webContents.send('voice:state', state); }
 });
+const chatBackend = require('./chat-ipc').registerChatIPC({ ipcMain, safeStorage,
+  directory: () => app.getPath('userData'), getWindow: () => win, canChat: () => !ghost });
 function suspendInteractions() {
   voiceService.cancel();
+  chatBackend.cancel();
   if (windowAlive()) win.webContents.send('window:suspend');
 }
 
@@ -322,13 +325,16 @@ function createWindow() {
   win.on('minimize', suspendInteractions);
   win.on('hide', suspendInteractions);
   win.on('blur', () => finishWindowDrag('blur'));
-  win.webContents.on('did-start-loading', () => { voiceService.cancel(); finishWindowDrag('reload'); });
+  win.webContents.on('did-start-loading', () => { voiceService.cancel(); chatBackend.cancel(); finishWindowDrag('reload'); });
+  win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+  win.webContents.on('will-navigate', event => event.preventDefault());
   win.webContents.on('did-finish-load', () => {
     win.setIgnoreMouseEvents(ghost, { forward: true });
     win.webContents.send('ghost:changed', ghost);
   });
   win.on('closed', () => {
     voiceService.cancel();
+    chatBackend.cancel();
     log('window closed (quitting=' + quitting + ' userHidden=' + userHidden + ')');
     win = null;
     dragSession = null;
@@ -344,6 +350,7 @@ function setGhost(on) {
   if (!windowAlive()) return false;
   ghost = !!on;
   if (ghost) finishWindowDrag();
+  if (ghost) suspendInteractions();
   try {
     win.setIgnoreMouseEvents(ghost, { forward: true });
     win.webContents.send('ghost:changed', ghost);
@@ -401,6 +408,7 @@ if (flag) {
 
   app.on('will-quit', () => {
     voiceService.cancel();
+    chatBackend.cancel();
     log('=== 退出 === quitting=' + quitting);
     globalShortcut.unregisterAll();
     if (tray) { try { tray.destroy(); } catch (e) {} }
@@ -470,6 +478,7 @@ function moveWindowDrag() {
   const dy = cursor.y - dragSession.cursor.y;
   if (!dragSession.moved && Math.hypot(dx, dy) < 4) return;
   if (!dragSession.moved) {
+    chatBackend.cancel();
     win.webContents.send('window:dragging');
     log('drag moving', { dx, dy });
   }

@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; object-src 'none'; frame-src 'none'; form-action 'none'">
 <title>大肥鱼 · 桌面陪伴</title>
 <style>
   /* ================= 主题变量（奶油蓝白 · 卡通） ================= */
@@ -518,6 +518,7 @@
 </style>
 <link rel="stylesheet" href="companion.css">
 <link rel="stylesheet" href="pet-interactions.css">
+<link rel="stylesheet" href="chat-ui.css">
 </head>
 <body class="collapsed">
   <section class="companion" aria-label="大肥鱼桌面伙伴">
@@ -532,6 +533,7 @@
       <span class="zzz" aria-hidden="true"><i>z</i><i>z</i><i>z</i></span>
     </button>
     <nav class="companion-tools" data-interactive aria-label="桌面伙伴设置">
+      <button class="pet-tool" id="petChatOpen" title="和伙伴聊一聊" aria-label="打开聊天" aria-controls="chatPanel" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H9l-5 4V4Z"/><path d="M8 8h8M8 12h5"/></svg></button>
       <button class="pet-tool" id="petSound" title="声音已开启 · 点击静音" aria-label="声音已开启 · 点击静音" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4 6 8H3v8h3l5 4V4Z"/><path class="sound-on" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-off" d="m16 9 5 6m0-6-5 6"/></svg></button>
       <button class="pet-tool" id="btnNight" title="夜间模式" aria-label="切换夜间模式">☾</button>
       <button class="pet-tool on" id="btnPin" title="置顶" aria-label="始终置顶" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3 8 0-1 6 3 4H6l3-4-1-6ZM12 13v8"/></svg></button>
@@ -672,6 +674,7 @@
 <script src="pet-dialogue.js"></script>
 <script src="human-dialogue.js"></script>
 <script src="pet-interactions.js"></script>
+<script src="chat-ui.js"></script>
 <script>
 (() => {
   const KEY = 'todo-widget-v2', OLD = 'todo-widget-v1';
@@ -727,7 +730,7 @@
 
   /* ---------------- 吉祥物表情 ---------------- */
   const mascotEl = document.getElementById('mascot');
-  let companion = null;
+  let companion = null, chat = null;
   const MOODS = ['idle', 'happy', 'sleep', 'star', 'focus'];
   let tempMood = null, tempMoodTimer = null;
   function moodBase(){
@@ -755,10 +758,12 @@
   /* ---------------- 桌面角色 ---------------- */
   let speechUntil = 0;
   const speechEl = document.getElementById('petSpeech');
+  const speechBubble = document.getElementById('petBubble');
   function speak(text, duration = 4200) {
     speechUntil = Date.now() + duration;
     speechEl.textContent = text;
     speechEl.title = text;
+    speechBubble.classList.add('is-visible');
   }
   function renderCompanion() {
     const p = data.pomo;
@@ -769,14 +774,18 @@
     focusButton.title = p.running ? '暂停计时' : (p.mode === 'focus' ? '开始专注' : '开始休息');
     document.getElementById('petFocusText').textContent = (p.running ? '暂停 ' : (p.mode === 'focus' ? '专注 ' : '休息 ')) + fmtRemain(p.remain);
     document.getElementById('petStatus').textContent = companion?.status() || (p.running ? (p.mode === 'focus' ? '· 专注陪伴' : '· 休息时间') : '· 在你身边');
-    if (Date.now() < speechUntil) return;
+    const speaking = mascotEl.classList.contains('talking');
+    const listening = document.getElementById('petMic').classList.contains('listening');
+    const showSpeech = Date.now() < speechUntil || speaking || listening;
+    speechBubble.classList.toggle('is-visible', showSpeech);
+    if (showSpeech) return;
     const text = p.running
       ? (p.mode === 'focus' ? '我在这里陪你，安心做眼前的事。' : '辛苦啦，伸个懒腰、喝口水吧。')
       : total > 0 && !data.todo.length ? '今天的待办都完成啦，你真棒！'
       : companion?.idleText(data.todo.length) || '今天想做些什么？';
     if (speechEl.textContent !== text) { speechEl.textContent = text; speechEl.title = text; }
   }
-  const togglePanel = () => setCollapsed(!document.body.classList.contains('collapsed'));
+  const togglePanel = () => { chat?.close(false); setCollapsed(!document.body.classList.contains('collapsed')); };
   document.getElementById('petTodos').onclick = togglePanel;
   document.getElementById('petBubble').onclick = togglePanel;
   document.getElementById('petFocus').onclick = () => pomoStartPause();
@@ -1223,14 +1232,19 @@
     say: speak,
     onMood: flashMood,
     onCharacterChange: () => { clearTimeout(tempMoodTimer); tempMood = null; renderMini(true); },
-    onCommand: id => {
+    onCommand: (id, value) => {
       if (id === 'focus') {
         if (data.pomo.mode !== 'focus') pomoSwitchMode('focus');
         if (!data.pomo.running) pomoStartPause();
       } else if (id === 'pause') {
         if (data.pomo.running) pomoStartPause();
-      } else if (id === 'open') setCollapsed(false);
+      } else if (id === 'open') { chat?.close(false); setCollapsed(false); }
+      else if (id === 'add' && value && !data.todo.includes(value)) add(value);
     }
+  });
+  chat = window.createChatUI({ companion,
+    openPanel: () => { const collapsed = document.body.classList.contains('collapsed'); setCollapsed(false, true); return collapsed; },
+    closePanel: collapsed => setCollapsed(collapsed, true)
   });
   render(true);
   // 恢复上次未走完的番茄（含程序重启）

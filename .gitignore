@@ -12,3 +12,8 @@ preview/bridge-result.json
 *.log
 shot-*.png
 tray.png.bak
+
+# 聊天凭据与个人记忆（包含便携数据目录以外的备份）
+chat-config.json
+chat-memory-*.json
+__pycache__/

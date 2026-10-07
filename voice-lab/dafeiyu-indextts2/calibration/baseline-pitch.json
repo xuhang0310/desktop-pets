@@ -1,0 +1,57 @@
+[
+  {
+    "file": "D:\\workspace\\桌面插件\\todo-widget\\voice-lab\\dafeiyu-indextts2\\reference-opening.wav",
+    "duration": 4.25,
+    "voiced_fraction": 0.815,
+    "reliable_frames": 277,
+    "f0_hz_p10_median_p90": [
+      99.67,
+      241.19,
+      325.69
+    ]
+  },
+  {
+    "file": "D:\\workspace\\桌面插件\\todo-widget\\voice-lab\\dafeiyu-indextts2\\01-catchphrase.wav",
+    "duration": 4.644,
+    "voiced_fraction": 0.641,
+    "reliable_frames": 255,
+    "f0_hz_p10_median_p90": [
+      99.67,
+      277.06,
+      343.07
+    ]
+  },
+  {
+    "file": "D:\\workspace\\桌面插件\\todo-widget\\voice-lab\\dafeiyu-indextts2\\pack-masters\\hello-1.wav",
+    "duration": 3.808,
+    "voiced_fraction": 0.709,
+    "reliable_frames": 244,
+    "f0_hz_p10_median_p90": [
+      96.27,
+      274.67,
+      356.0
+    ]
+  },
+  {
+    "file": "D:\\workspace\\桌面插件\\todo-widget\\voice-lab\\dafeiyu-indextts2\\pack-masters\\pat-1.wav",
+    "duration": 3.309,
+    "voiced_fraction": 0.749,
+    "reliable_frames": 202,
+    "f0_hz_p10_median_p90": [
+      99.15,
+      263.02,
+      354.76
+    ]
+  },
+  {
+    "file": "D:\\workspace\\桌面插件\\todo-widget\\voice-lab\\dafeiyu-indextts2\\pack-masters\\who.wav",
+    "duration": 8.046,
+    "voiced_fraction": 0.682,
+    "reliable_frames": 438,
+    "f0_hz_p10_median_p90": [
+      101.41,
+      285.17,
+      357.23
+    ]
+  }
+]

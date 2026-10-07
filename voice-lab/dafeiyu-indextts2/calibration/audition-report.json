@@ -1,0 +1,59 @@
+{
+  "text": "你天天跟GPT聊天，不跟你好了！",
+  "source_interval_seconds": [
+    1.74,
+    4.98
+  ],
+  "seed": 20261007,
+  "model": "IndexTTS-2",
+  "reference": {
+    "duration": 3.24,
+    "speech_span": 3.09,
+    "f0_hz_p10_median_p90": [
+      224.75250392174493,
+      291.13063656843747,
+      328.6761258343161
+    ],
+    "relative_band_db": {
+      "body": 3.8227617740631104,
+      "presence": -19.427730560302734
+    },
+    "peak": 0.590362548828125,
+    "clipped_fraction": 0.0
+  },
+  "A": {
+    "duration": 3.007,
+    "speech_span": 2.79,
+    "f0_hz_p10_median_p90": [
+      234.02627602114364,
+      303.14331330207966,
+      332.4951584571151
+    ],
+    "relative_band_db": {
+      "body": 3.540250062942505,
+      "presence": -17.584848403930664
+    },
+    "peak": 0.719970703125,
+    "clipped_fraction": 0.0,
+    "campplus_cosine_to_reference": 0.9276553392410278
+  },
+  "B": {
+    "duration": 3.3303125,
+    "speech_span": 3.08,
+    "f0_hz_p10_median_p90": [
+      223.19942852604467,
+      293.66527540461516,
+      321.1691527453506
+    ],
+    "relative_band_db": {
+      "body": 5.709702491760254,
+      "presence": -18.042062759399414
+    },
+    "peak": 0.715118408203125,
+    "clipped_fraction": 0.0,
+    "campplus_cosine_to_reference": 0.8839471340179443
+  },
+  "B_filter": "rubberband=pitch=0.960373:tempo=0.902913:formant=shifted:pitchq=quality,equalizer=f=300:t=q:w=0.7:g=0.2825,equalizer=f=2800:t=q:w=0.7:g=-1.8429,loudnorm=I=-18:TP=-2:LRA=7",
+  "generation_seconds": 21.529747000000498,
+  "note": "Auditions only. Cosine similarity is a diagnostic, not a percentage or a perceptual guarantee. The desktop pack has not been changed."
+}

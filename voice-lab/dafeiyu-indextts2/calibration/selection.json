@@ -1,0 +1,47 @@
+{
+  "selected_version": "A",
+  "user_reply": "A",
+  "approved_date": "2026-10-07",
+  "reference": "reference-voice-only.wav",
+  "reference_sha256": "3e7cdf320ff05cb18603c9c1a409b56021feebeb3330fffc76b536c45aff54bd",
+  "current_batch": "full-approved-a-pack",
+  "authorized_line_ids": [
+    "hello-1",
+    "hello-2",
+    "pat-1",
+    "pat-2",
+    "poke-1",
+    "poke-2",
+    "poke-3",
+    "dance",
+    "cheer",
+    "sleep",
+    "wake",
+    "care",
+    "focus",
+    "pause",
+    "open",
+    "thanks",
+    "who",
+    "rice",
+    "game"
+  ],
+  "requires_review_before_further_generation": false,
+  "production_pack_replaced": true,
+  "retained_approved_line": {
+    "id": "poke-3",
+    "text": "你天天跟GPT聊天，不跟你好了！",
+    "source": "A-recloned.mp3",
+    "planned_trigger": "body-click random reply"
+  },
+  "completion_authorization": "继续，剩下的全部吧，全部搞定",
+  "status": "installed-and-verified",
+  "production_directory": "assets/voice-dafeiyu-indextts2-a",
+  "validation": {
+    "whale_clips": 19,
+    "total_decoded_clips": 37,
+    "approved_files_preserved": 4,
+    "interaction_check": "passed",
+    "desktop_reloaded": true
+  }
+}

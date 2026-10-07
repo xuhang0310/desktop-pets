@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:">
+<title>大肥鱼 · 桌面陪伴</title>
+<style>
+  /* ================= 主题变量（奶油蓝白 · 卡通） ================= */
+  body{
+    --paper:#fff9f1;
+    --ink:#4a4e63;
+    --ink-soft:#9aa0bd;
+    --blue:#5b8fe8;
+    --blue-deep:#3f6fce;
+    --sky:#a9ccff;
+    --sky-soft:#eaf3ff;
+    --pink:#ff8fab;
+    --pink-deep:#f2668b;
+    --pink-soft:#ffeef3;
+    --gold:#ffc94d;
+    --mint:#7fd8c0;
+    --line:rgba(91,143,232,.28);
+    --panel:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.6));
+    --hover:rgba(91,143,232,.10);
+    --bar-track:rgba(91,143,232,.14);
+    --dot:rgba(91,143,232,.10);
+    --dot2:rgba(255,143,171,.10);
+    --knob-glow:rgba(255,201,77,.6);
+    --shadow:rgba(63,111,206,.35);
+  }
+  body.night{
+    --paper:#262d4d;
+    --ink:#eef2ff;
+    --ink-soft:#8f97bf;
+    --blue:#7ba5f5;
+    --blue-deep:#9dbdff;
+    --sky:#4a5b93;
+    --sky-soft:rgba(123,165,245,.14);
+    --pink:#ff9ebb;
+    --pink-deep:#ffb6cc;
+    --pink-soft:rgba(255,158,187,.14);
+    --gold:#ffd166;
+    --line:rgba(123,165,245,.30);
+    --panel:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+    --hover:rgba(123,165,245,.14);
+    --bar-track:rgba(123,165,245,.18);
+    --dot:rgba(123,165,245,.12);
+    --dot2:rgba(255,158,187,.10);
+    --shadow:rgba(8,12,32,.6);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; -webkit-user-select:none; user-select:none; }
+  html,body{ height:100%; overflow:hidden; background:transparent;
+    font-family:"Yuanti SC","YouYuan","幼圆","Comic Sans MS","Microsoft YaHei",sans-serif; color:var(--ink); }
+  body{ padding:10px; }
+
+  /* ================= 卡片 ================= */
+  .card{
+    height:100%; display:flex; position:relative; overflow:hidden;
+    background:
+      radial-gradient(600px 300px at 85% -10%, rgba(255,255,255,.9), transparent 60%),
+      var(--paper);
+    border-radius:24px;
+    border:2px solid var(--line);
+    box-shadow: 0 14px 36px -10px var(--shadow), 0 4px 12px rgba(63,111,206,.12),
+      inset 0 -8px 0 rgba(91,143,232,.06);
+    transition:box-shadow .5s, border-color .5s, background .4s;
+    animation:card-in .55s cubic-bezier(.25,1.4,.35,1) both;
+  }
+  @keyframes card-in{ from{ opacity:0; transform:translateY(14px) scale(.94); } }
+  /* 奶油波点 */
+  .card::before{
+    content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      radial-gradient(var(--dot) 1.6px, transparent 1.7px),
+      radial-gradient(var(--dot2) 1.6px, transparent 1.7px);
+    background-size:24px 24px; background-position:0 0, 12px 12px;
+  }
+  /* 顶部白蕾丝边（女仆头饰呼应） */
+  .card::after{
+    content:""; position:absolute; top:0; left:20px; right:14px; height:9px; z-index:2;
+    background:radial-gradient(circle 5px at 8px 0, rgba(255,255,255,.95) 94%, transparent);
+    background-size:16px 9px; background-repeat:repeat-x;
+    filter:drop-shadow(0 1px 0 var(--line));
+    pointer-events:none;
+  }
+  body.night .card::after{ background:radial-gradient(circle 5px at 8px 0, rgba(123,165,245,.35) 94%, transparent); background-size:16px 9px; background-repeat:repeat-x; }
+  /* 全部完成：撒花状态 */
+  .card.allclear{ border-color:rgba(255,201,77,.75);
+    box-shadow:0 14px 36px -10px var(--shadow), 0 0 0 2px rgba(255,201,77,.35), 0 0 26px rgba(255,201,77,.35); }
+
+  /* ================= 左侧缎带 ================= */
+  .binding{
+    flex:0 0 12px; position:relative; z-index:1;
+    background:linear-gradient(180deg, var(--sky), var(--blue));
+    border-radius:20px 0 0 22px;
+    box-shadow:inset -2px 0 0 rgba(255,255,255,.35);
+  }
+  .binding::before{
+    content:""; position:absolute; top:10px; bottom:10px; left:5px; width:2px;
+    background:repeating-linear-gradient(180deg, rgba(255,255,255,.8) 0 4px, transparent 4px 9px);
+    border-radius:2px;
+  }
+
+  .inner{ flex:1; min-width:0; display:flex; flex-direction:column; position:relative; z-index:1; }
+
+  /* 穿透模式 */
+  body.ghost .card{ opacity:.55; }
+  .ghost-tip{
+    display:none; position:absolute; z-index:9; left:50%; top:50%; transform:translate(-50%,-50%) rotate(-3deg);
+    background:rgba(63,76,128,.94); color:#fff; font-size:12.5px; letter-spacing:2px;
+    padding:7px 14px; border-radius:999px; pointer-events:none; white-space:nowrap;
+  }
+  body.ghost .ghost-tip{ display:block; animation:tip-in .3s ease both; }
+  @keyframes tip-in{ from{ opacity:0; transform:translate(-50%,-50%) scale(.9); } }
+
+  /* ================= 吉祥物「大肥鱼」 ================= */
+  .mascot{
+    -webkit-app-region:no-drag;
+    flex:none; width:54px; height:54px; position:relative; cursor:pointer;
+    filter:drop-shadow(0 3px 4px rgba(63,111,206,.30));
+    transition:transform .15s;
+  }
+  .mascot:hover{ transform:scale(1.08) rotate(-3deg); }
+  .mascot svg{ width:54px; height:54px; display:block; overflow:visible;
+    animation:sway 5s ease-in-out infinite; transform-origin:50% 85%; }
+  @keyframes sway{ 0%,100%{ transform:rotate(-2.2deg); } 50%{ transform:rotate(2.2deg); } }
+  .mascot.boing svg{ animation:boing .5s ease; }
+  @keyframes boing{ 30%{ transform:scale(1.18,.82); } 60%{ transform:scale(.9,1.14); } }
+
+  /* 眨眼（仅睁眼的默认表情） */
+  .mascot .e-open{ transform-box:fill-box; transform-origin:center; animation:blink 4.8s infinite; }
+  @keyframes blink{ 0%,92%,100%{ transform:scaleY(1); } 95%{ transform:scaleY(.08); } 98%{ transform:scaleY(1); } }
+
+  /* 表情切换：默认 idle = 睁眼 + 微笑 */
+  .mascot .e-happy,.mascot .e-sleep,.mascot .e-star,.mascot .brows,
+  .mascot .m-open,.mascot .m-flat,.mascot .m-cat{ display:none; }
+  .mascot.mood-happy .e-open,.mascot.mood-sleep .e-open,.mascot.mood-star .e-open{ display:none; }
+  .mascot.mood-happy .e-happy,.mascot.mood-sleep .e-sleep,.mascot.mood-star .e-star{ display:block; }
+  .mascot.mood-happy .m-smile,.mascot.mood-sleep .m-smile,
+  .mascot.mood-star .m-smile,.mascot.mood-focus .m-smile{ display:none; }
+  .mascot.mood-happy .m-open,.mascot.mood-star .m-open{ display:block; }
+  .mascot.mood-sleep .m-flat{ display:block; }
+  .mascot.mood-focus .brows{ display:block; }
+  .mascot.mood-focus .m-cat{ display:block; }
+  .mascot.mood-star svg{ animation:star-wiggle .7s ease-in-out infinite; }
+  @keyframes star-wiggle{ 0%,100%{ transform:rotate(-3deg) scale(1); } 50%{ transform:rotate(3deg) scale(1.06); } }
+
+  /* 犯困泡泡 zzz */
+  .zzz{ display:none; position:absolute; top:-4px; right:-6px; pointer-events:none; }
+  .mascot.mood-sleep .zzz{ display:block; }
+  .zzz i{
+    position:absolute; font-style:normal; font-weight:700; color:var(--blue);
+    font-family:"Comic Sans MS",cursive; animation:zfloat 2.2s ease-in infinite;
+  }
+  .zzz i:nth-child(1){ font-size:9px; animation-delay:0s; }
+  .zzz i:nth-child(2){ font-size:12px; animation-delay:.7s; }
+  .zzz i:nth-child(3){ font-size:15px; animation-delay:1.4s; }
+  @keyframes zfloat{
+    0%{ opacity:0; transform:translate(0,8px); }
+    30%{ opacity:1; }
+    100%{ opacity:0; transform:translate(9px,-16px); }
+  }
+
+  /* ================= 头部（拖动区） ================= */
+  header{
+    -webkit-app-region:drag;
+    padding:12px 10px 2px 10px; flex:none;
+    display:flex; align-items:center; gap:8px; min-height:64px;
+  }
+  .date-block{ line-height:1.2; min-width:0; overflow:hidden; flex:1; }
+  .date-block .lunar{
+    display:inline-block; font-size:10px; letter-spacing:1px; color:#fff;
+    background:linear-gradient(90deg, var(--blue), var(--sky));
+    border-radius:999px; padding:1.5px 9px; margin-bottom:3px; white-space:nowrap;
+    box-shadow:0 2px 5px -2px var(--shadow);
+  }
+  .date-block .big{ font-size:19px; font-weight:700; letter-spacing:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .date-block .big em{ font-style:normal; font-size:11.5px; color:var(--ink-soft); letter-spacing:1px; margin-left:6px; font-weight:400; }
+
+  .win-tools{ -webkit-app-region:no-drag; display:flex; gap:1px; align-items:center; flex:none; flex-wrap:wrap; justify-content:flex-end; max-width:76px; }
+  .tool{
+    flex:none; width:22px; height:22px; border-radius:50%; border:none; background:transparent;
+    color:var(--ink-soft); font-size:11.5px; cursor:pointer; line-height:1;
+    display:flex; align-items:center; justify-content:center; font-family:inherit;
+    transition:background .15s, color .15s, transform .12s;
+  }
+  .tool:hover{ background:var(--pink-soft); color:var(--pink-deep); transform:translateY(-1px) scale(1.1); }
+  .tool:active{ transform:scale(.85); }
+  .tool.on{ color:#fff; background:var(--blue); }
+  .tool.close:hover{ background:var(--pink); color:#fff; }
+  .tool .chev{ display:inline-block; transition:transform .3s; }
+  body:not(.collapsed) .tool .chev{ transform:rotate(180deg); }
+
+  /* ================= 折叠：成就面板 ================= */
+  .mini{
+    -webkit-app-region:no-drag; cursor:pointer;
+    padding:2px 12px 10px 14px; display:flex; flex-direction:column; gap:6px;
+    animation:mini-in .35s ease both;
+  }
+  @keyframes mini-in{ from{ opacity:0; transform:translateY(-6px); } }
+  body:not(.collapsed) .mini{ display:none; }
+
+  .stats{ display:flex; gap:8px; }
+  .stat{
+    flex:1; border-radius:16px; padding:5px 11px 6px;
+    border:2px solid var(--line); position:relative; overflow:hidden;
+    background:var(--panel);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .stat.todo{ background:linear-gradient(180deg, var(--sky-soft), rgba(255,255,255,.4)); }
+  .stat.done{ background:linear-gradient(180deg, var(--pink-soft), rgba(255,255,255,.4)); }
+  body.night .stat.todo, body.night .stat.done{ background:var(--panel); }
+  .mini:hover .stat{ box-shadow:0 4px 12px -4px var(--shadow); transform:translateY(-1px); }
+  .stat .num{
+    font-size:25px; line-height:1.05; font-weight:700; letter-spacing:1px;
+    font-variant-numeric:tabular-nums; font-family:"Comic Sans MS","Yuanti SC","YouYuan",cursive;
+  }
+  .stat .cap{ font-size:10.5px; letter-spacing:3px; color:var(--ink-soft); margin-top:1px; }
+  .stat.todo .num{ color:var(--blue-deep); }
+  .stat.todo::after{ content:"✎"; position:absolute; right:9px; bottom:4px; font-size:22px; color:var(--blue); opacity:.18; }
+  .stat.done .num{ color:var(--pink-deep); }
+  .stat.done::after{ content:"♥"; position:absolute; right:9px; bottom:4px; font-size:22px; color:var(--pink); opacity:.22; }
+  .stat.bump{ animation:bump .45s ease; }
+  @keyframes bump{ 40%{ transform:scale(1.08) rotate(-1.5deg); } 100%{ transform:scale(1); } }
+
+  .bar-row{ display:flex; align-items:center; gap:8px; }
+  .bar{ flex:1; height:12px; border-radius:999px; background:var(--bar-track); overflow:hidden; position:relative; border:1.5px solid var(--line); }
+  .bar i{
+    display:block; height:100%; width:0%; border-radius:999px; position:relative; overflow:hidden;
+    background:linear-gradient(90deg, var(--blue), var(--pink));
+    transition:width .6s cubic-bezier(.4,1.4,.5,1);
+  }
+  /* 糖果斜纹 */
+  .bar i::before{
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(45deg, rgba(255,255,255,.35) 0 6px, transparent 6px 12px);
+  }
+  /* 流光扫过 */
+  .bar i::after{
+    content:""; position:absolute; top:0; bottom:0; width:36px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
+    animation:shimmer 2.4s ease-in-out infinite;
+  }
+  @keyframes shimmer{ 0%{ left:-40px; } 60%,100%{ left:110%; } }
+  /* 星星刻标 */
+  .bar b{
+    position:absolute; top:50%; left:-8px; width:15px; height:15px; z-index:2;
+    transform:translateY(-50%);
+    background:var(--gold);
+    clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+    filter:drop-shadow(0 0 4px var(--knob-glow));
+    transition:left .6s cubic-bezier(.4,1.4,.5,1);
+  }
+  .bar-row .pct{ font-size:11px; color:var(--pink-deep); font-variant-numeric:tabular-nums; letter-spacing:.5px; min-width:32px; text-align:right; font-weight:700; }
+  .cheer{ font-size:12px; letter-spacing:.5px; color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .cheer b{ color:var(--pink-deep); font-weight:700; }
+  .foot{ display:flex; align-items:baseline; justify-content:space-between; gap:8px; font-size:10.5px; }
+  .foot .acc{ color:var(--blue); letter-spacing:.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .foot .expand-hint{ color:var(--ink-soft); opacity:.65; letter-spacing:1px; white-space:nowrap; flex:none; }
+
+  /* ================= 展开：完整清单 ================= */
+  .full{ display:none; flex:1; flex-direction:column; min-height:0; }
+  body:not(.collapsed) .full{ display:flex; animation:ink-in .32s ease both; }
+
+  .composer{ padding:2px 12px 4px 14px; -webkit-app-region:no-drag; }
+  .composer .row{
+    display:flex; align-items:center; gap:8px; padding:7px 14px;
+    background:#fff; border:2px solid var(--line); border-radius:999px;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  body.night .composer .row{ background:rgba(255,255,255,.06); }
+  .composer .row:focus-within{ border-color:var(--pink); box-shadow:0 0 0 3px rgba(255,143,171,.18); }
+  .composer .brush{ color:var(--pink-deep); font-size:14px; flex:none; }
+  .composer input{
+    flex:1; border:none; outline:none; background:transparent;
+    font-family:inherit; font-size:14.5px; color:var(--ink); letter-spacing:.5px;
+    -webkit-user-select:text; user-select:text;
+  }
+  .composer input::placeholder{ color:var(--ink-soft); opacity:.75; }
+  .composer .hint{ font-size:10.5px; color:var(--ink-soft); opacity:.65; margin:4px 6px 0; letter-spacing:1.5px; }
+
+  .scroll{ flex:1; overflow-y:auto; padding:0 8px 12px 10px; scrollbar-width:thin; scrollbar-color:var(--sky) transparent; }
+  .scroll::-webkit-scrollbar{ width:5px; }
+  .scroll::-webkit-scrollbar-thumb{ background:var(--sky); border-radius:3px; }
+
+  .section-label{
+    font-size:12px; letter-spacing:3px; color:var(--ink-soft);
+    display:flex; align-items:center; gap:8px; margin:8px 6px 5px;
+  }
+  .section-label::before{ content:"✿"; font-size:10px; color:var(--pink); opacity:.85; letter-spacing:0; }
+  .section-label .count{ margin-left:auto; letter-spacing:0; color:var(--pink-deep); font-weight:700; }
+  .section-label button{
+    margin-left:auto; border:none; background:none; cursor:pointer; font-family:inherit;
+    font-size:11px; letter-spacing:2px; color:var(--ink-soft); padding:2px 8px; border-radius:999px;
+  }
+  .section-label button:hover{ color:#fff; background:var(--pink); }
+
+  .empty{
+    text-align:center; color:var(--ink-soft); font-size:13px; opacity:.7;
+    padding:18px 0 12px; letter-spacing:2px; line-height:2; position:relative;
+  }
+
+  /* 待办条目 */
+  .item{
+    display:flex; align-items:flex-start; gap:10px; padding:7px 10px;
+    border-bottom:1.5px dashed var(--line); border-radius:10px;
+    transition:background .15s, transform .15s; position:relative;
+    animation:ink-in .3s ease both;
+  }
+  @keyframes ink-in{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
+  .item:hover{ background:var(--hover); transform:translateX(2px); }
+  .item .check{ flex:none; width:20px; height:20px; margin-top:1px; cursor:pointer; }
+  .item .check svg{ width:20px; height:20px; display:block; overflow:visible; }
+  .item .check .ring{
+    fill:transparent; stroke:var(--ink-soft); stroke-width:1.8; stroke-linecap:round;
+    stroke-dasharray:63; stroke-dashoffset:0; transition:stroke .3s, stroke-dashoffset .3s;
+  }
+  .item .check:hover .ring{ stroke:var(--pink); stroke-dashoffset:9; }
+  .item .check .tick{
+    fill:none; stroke:var(--pink-deep); stroke-width:2.6; stroke-linecap:round;
+    stroke-dasharray:24; stroke-dashoffset:24; transition:stroke-dashoffset .35s ease .05s;
+  }
+  .item.done .check .ring{ stroke:var(--pink); stroke-dashoffset:63; transition:stroke-dashoffset .4s ease; }
+  .item.done .check .tick{ stroke-dashoffset:0; }
+  .item .text{ flex:1; font-size:14.5px; line-height:1.5; letter-spacing:.5px; position:relative; word-break:break-word; outline:none; border-radius:4px; }
+  .item .text::after{
+    content:""; position:absolute; left:-2px; right:100%; top:52%; height:2px; border-radius:2px;
+    background:var(--pink); opacity:.75; transform:rotate(-.8deg); transition:right .35s ease;
+  }
+  .item.done .text::after{ right:-2px; }
+  .item.done{ animation:done-fly .45s ease .3s both; }
+  @keyframes done-fly{ to{ opacity:0; transform:translateX(26px); } }
+  .item .del{
+    flex:none; border:none; background:none; cursor:pointer; color:var(--ink-soft); font-family:inherit;
+    font-size:13px; padding:2px 6px; border-radius:50%; opacity:0; transition:opacity .15s, color .15s; margin-top:2px;
+  }
+  .item:hover .del{ opacity:.65; }
+  .item .del:hover{ opacity:1; color:#fff; background:var(--pink); }
+
+  #doneList .item{ padding:5px 10px; }
+  #doneList .text{ font-size:13.5px; color:var(--ink-soft); }
+  #doneList .item .check{ width:16px; height:16px; margin-top:3px; }
+  #doneList .item .check svg{ width:16px; height:16px; }
+  #doneWrap.collapsed #doneList{ display:none; }
+
+  /* ================= 番茄钟 ================= */
+  .flash-veil{
+    position:absolute; inset:0; border-radius:22px; pointer-events:none; opacity:0; z-index:8;
+    box-shadow:inset 0 0 0 3px var(--gold), 0 0 30px rgba(255,201,77,.5); transition:opacity .3s;
+  }
+  .flash-veil.on{ opacity:1; animation:veil-pulse 1.1s ease-in-out infinite; }
+  @keyframes veil-pulse{ 50%{ opacity:.3; } }
+
+  /* 折叠条 */
+  .pomo-strip{
+    -webkit-app-region:no-drag; cursor:pointer; position:relative; overflow:hidden;
+    display:flex; align-items:center; gap:6px;
+    padding:4px 10px 6px; border-radius:999px;
+    background:var(--panel); border:2px solid var(--line);
+    font-size:11px; color:var(--ink-soft);
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .pomo-strip:hover{ border-color:var(--pink); }
+  .pomo-strip.running{ border-color:var(--pink); box-shadow:0 0 0 3px rgba(255,143,171,.15); }
+  .pomo-strip.break{ border-color:var(--mint); }
+  .pomo-strip.break.running{ box-shadow:0 0 0 3px rgba(127,216,192,.2); }
+  .pt-icon{ font-size:11px; }
+  .pt-time{ font-family:"Comic Sans MS","Yuanti SC",cursive; font-size:13px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums; }
+  .pomo-strip.running .pt-time{ color:var(--pink-deep); }
+  .pomo-strip.break .pt-time{ color:#3fae8f; }
+  .pt-mode{ letter-spacing:1.5px; font-size:10.5px; }
+  .pt-toms{ margin-left:auto; font-size:10px; color:var(--pink-deep); letter-spacing:1px; }
+  .pt-btn{
+    flex:none; width:18px; height:18px; border-radius:50%; border:1.5px solid var(--line);
+    background:transparent; color:var(--ink-soft); font-size:8.5px; cursor:pointer; line-height:1;
+    display:flex; align-items:center; justify-content:center; font-family:inherit; padding:0;
+  }
+  .pomo-strip:hover .pt-btn{ color:#fff; background:var(--pink); border-color:var(--pink); }
+  .pt-bar{ position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--bar-track); }
+  .pt-bar b{ display:block; height:100%; width:100%; background:linear-gradient(90deg, var(--blue), var(--pink)); transition:width .3s linear; }
+  .pomo-strip.break .pt-bar b{ background:var(--mint); }
+  .pomo-strip.long .pt-bar b{ background:var(--gold); }
+
+  /* 展开卡片 */
+  .pomo-card{
+    flex:none; margin:2px 12px 10px 14px; padding:8px 10px; border-radius:16px;
+    background:var(--panel); border:2px solid var(--line);
+    display:flex; align-items:center; gap:10px; position:relative;
+  }
+  .pomo-ring{ position:relative; width:52px; height:52px; flex:none; }
+  .pomo-ring svg{ width:52px; height:52px; transform:rotate(-90deg); display:block; }
+  .pomo-ring .ring-bg{ fill:none; stroke:var(--bar-track); stroke-width:5; }
+  .pomo-ring .ring-fg{
+    fill:none; stroke:var(--pink); stroke-width:5; stroke-linecap:round;
+    stroke-dasharray:144.51; stroke-dashoffset:0;
+    transition:stroke-dashoffset .3s linear, stroke .4s;
+  }
+  .pomo-ring .t{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:"Comic Sans MS","Yuanti SC",cursive; font-size:11.5px; font-weight:700;
+    font-variant-numeric:tabular-nums; color:var(--ink);
+  }
+  .pomo-card.break .ring-fg{ stroke:var(--mint); }
+  .pomo-card.long .ring-fg{ stroke:var(--gold); }
+  .pomo-right{ flex:1; min-width:0; display:flex; flex-direction:column; gap:5px; }
+  .pomo-chips{ display:flex; gap:4px; }
+  .chip{
+    font-family:inherit; font-size:10px; letter-spacing:.5px; color:var(--ink-soft);
+    background:transparent; border:1.5px solid var(--line); border-radius:999px;
+    padding:1.5px 8px; cursor:pointer; transition:all .15s; white-space:nowrap;
+  }
+  .chip:hover{ color:var(--ink); border-color:var(--ink-soft); transform:translateY(-1px); }
+  .chip.on{ color:#fff; background:var(--pink); border-color:var(--pink); }
+  .pomo-card.break .chip.on{ background:var(--mint); border-color:var(--mint); }
+  .pomo-card.long .chip.on{ background:var(--gold); border-color:var(--gold); }
+  .pomo-actions{ display:flex; align-items:center; gap:5px; }
+  .pbtn{
+    font-family:inherit; font-size:11px; letter-spacing:1px; cursor:pointer;
+    border:none; color:#fff; background:linear-gradient(135deg, var(--blue), var(--pink));
+    border-radius:999px; padding:3.5px 12px; transition:all .15s; white-space:nowrap;
+    box-shadow:0 3px 8px -3px var(--shadow);
+  }
+  .pbtn:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+  .pbtn.ghost{ background:transparent; color:var(--ink-soft); border:1.5px solid var(--line); padding:2.5px 8px; box-shadow:none; }
+  .pbtn.ghost:hover{ color:var(--pink-deep); border-color:var(--pink); }
+  .pomo-dots{ display:flex; gap:3px; margin-left:2px; }
+  .pomo-dots i{ width:6px; height:6px; border-radius:50%; background:var(--bar-track); transition:background .2s; }
+  .pomo-dots i.on{ background:var(--pink); }
+  .pomo-count{ margin-left:auto; font-size:10px; color:var(--pink-deep); white-space:nowrap; }
+  .pomo-task{ font-size:10px; color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; letter-spacing:.5px; }
+
+  /* ===== 专注视图 ===== */
+  .focus-face{
+    -webkit-app-region:no-drag; display:none; flex-direction:column; align-items:center;
+    gap:6px; padding:2px 12px 10px 14px; cursor:pointer;
+  }
+  body.focusing .focus-face{ display:flex; animation:mini-in .3s ease both; }
+  body.focusing .mini > :not(.focus-face){ display:none; }
+
+  .ft-time{
+    font-family:"Comic Sans MS","Yuanti SC",cursive; font-size:44px; font-weight:700; line-height:1.05;
+    letter-spacing:2px; color:var(--pink-deep); font-variant-numeric:tabular-nums; margin-top:0;
+  }
+  .mini.break .ft-time{ color:#3fae8f; }
+  .mini.long .ft-time{ color:var(--gold); }
+  .ft-sub{ display:flex; align-items:center; gap:9px; width:100%; }
+  .ft-mode{ font-size:11px; letter-spacing:3px; color:var(--ink-soft); flex:none; }
+  .ft-bar{ flex:1; height:4px; border-radius:999px; background:var(--bar-track); overflow:hidden; }
+  .ft-bar b{ display:block; height:100%; width:100%; background:linear-gradient(90deg, var(--blue), var(--pink)); transition:width .3s linear; }
+  .mini.break .ft-bar b{ background:var(--mint); }
+  .mini.long .ft-bar b{ background:var(--gold); }
+
+  .ft-todos{ width:100%; display:flex; flex-direction:column; margin-top:2px; }
+  .ft-item{
+    display:flex; align-items:center; gap:9px; padding:4px 8px; border-radius:999px;
+    cursor:pointer; transition:background .15s, opacity .3s, transform .3s;
+  }
+  .ft-item:hover{ background:var(--hover); }
+  .ft-item .dot{ flex:none; width:14px; height:14px; border-radius:50%; border:1.5px solid var(--ink-soft); position:relative; transition:all .2s; }
+  .ft-item:hover .dot{ border-color:var(--pink); }
+  .ft-item .txt{ flex:1; font-size:12.5px; letter-spacing:.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ft-item.done{ opacity:0; transform:translateX(14px); }
+  .ft-item.done .dot{ background:var(--pink); border-color:var(--pink); }
+  .ft-item.done .dot::after{
+    content:""; position:absolute; left:4px; top:1px; width:4px; height:7px;
+    border:solid #fff; border-width:0 1.6px 1.6px 0; transform:rotate(42deg);
+  }
+  .ft-item.done .txt{ color:var(--ink-soft); text-decoration:line-through; }
+  .ft-empty{ font-size:11.5px; color:var(--ink-soft); opacity:.75; padding:8px 0 4px; letter-spacing:1.5px; text-align:center; }
+  .ft-pause{
+    margin-top:3px; font-family:inherit; font-size:11px; letter-spacing:3px; color:var(--ink-soft);
+    background:transparent; border:1.5px solid var(--line); border-radius:999px; padding:3px 18px; cursor:pointer;
+    transition:all .15s;
+  }
+  .ft-pause:hover{ color:#fff; background:var(--pink); border-color:var(--pink); }
+
+  /* 专注时展开态同步精简 */
+  body.focusing .pomo-card{ padding:6px 10px; }
+  body.focusing .pomo-ring, body.focusing .pomo-ring svg{ width:64px; height:64px; }
+  body.focusing .pomo-ring .t{ font-size:13.5px; }
+  body.focusing .pomo-chips, body.focusing .pomo-dots,
+  body.focusing .pomo-count, body.focusing .pomo-task,
+  body.focusing .composer .hint{ display:none; }
+  body.focusing #doneWrap{ display:none !important; }
+
+  /* ================= 特效 ================= */
+  .float{
+    position:absolute; z-index:20; pointer-events:none; font-size:14px; font-weight:700;
+    color:var(--pink-deep); letter-spacing:1px; animation:float-up 1.1s ease-out forwards;
+    text-shadow:0 1px 0 #fff, 0 0 8px rgba(255,143,171,.4);
+  }
+  @keyframes float-up{ 0%{ opacity:0; transform:translateY(6px) scale(.8); } 25%{ opacity:1; transform:translateY(-4px) scale(1.15); } 100%{ opacity:0; transform:translateY(-42px) scale(1); } }
+
+  .confetti{
+    position:absolute; z-index:19; pointer-events:none;
+    clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+    animation:fall 1.5s ease-in forwards;
+  }
+  @keyframes fall{
+    0%{ opacity:1; transform:translateY(0) rotate(0deg) scale(1); }
+    100%{ opacity:0; transform:translateY(190px) translateX(var(--dx)) rotate(var(--rot)) scale(.4); }
+  }
+
+  /* 星星徽章 */
+  .seal{
+    position:absolute; right:14px; bottom:12px; width:36px; height:36px; z-index:1;
+    border:2px dashed rgba(255,143,171,.6); border-radius:50%; color:rgba(242,102,139,.75);
+    font-size:9.5px; line-height:1.3; display:flex; align-items:center; justify-content:center;
+    text-align:center; transform:rotate(-8deg); pointer-events:none; letter-spacing:1px;
+    transition:all .6s;
+  }
+  body.collapsed .seal{ display:none; }
+  .card.allclear .seal{
+    border-color:var(--gold); color:#d99a00; border-style:solid;
+    transform:rotate(-8deg) scale(1.15); box-shadow:0 0 14px rgba(255,201,77,.5);
+  }
+</style>
+<link rel="stylesheet" href="companion.css">
+<link rel="stylesheet" href="pet-interactions.css">
+</head>
+<body class="collapsed">
+  <section class="companion" aria-label="大肥鱼桌面伙伴">
+    <button class="speech" id="petBubble" data-interactive title="打开今日清单" aria-controls="card" aria-expanded="false">
+      <span class="speech-label"><span id="petName">鲸鲸</span><span id="petStatus">· 在你身边</span><span class="voice-bars" aria-hidden="true"><i></i><i></i><i></i></span></span>
+      <span id="petSpeech" aria-live="polite">吃白米饭，鲸鲸！</span>
+    </button>
+    <button class="mascot mood-idle" id="mascot" data-interactive data-drag-handle title="按住大肥鱼拖动，轻点互动，双击打开清单" aria-label="按住拖动大肥鱼，轻点互动，双击打开清单">
+      <img class="character-art" id="characterArt" src="assets/xiaolan.png" alt="蓝发蓝眼睛、戴白色发饰、穿深蓝裙装的大肥鱼" draggable="false">
+      <span class="pet-fallback" id="petFallback" hidden>伙伴的形象暂时没加载好<br>待办和专注仍可使用</span>
+      <span class="mood-decoration" aria-hidden="true">✦</span>
+      <span class="zzz" aria-hidden="true"><i>z</i><i>z</i><i>z</i></span>
+    </button>
+    <nav class="companion-tools" data-interactive aria-label="桌面伙伴设置">
+      <button class="pet-tool" id="petSound" title="声音已开启 · 点击静音" aria-label="声音已开启 · 点击静音" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4 6 8H3v8h3l5 4V4Z"/><path class="sound-on" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-off" d="m16 9 5 6m0-6-5 6"/></svg></button>
+      <button class="pet-tool" id="btnNight" title="夜间模式" aria-label="切换夜间模式">☾</button>
+      <button class="pet-tool on" id="btnPin" title="置顶" aria-label="始终置顶" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3 8 0-1 6 3 4H6l3-4-1-6ZM12 13v8"/></svg></button>
+      <button class="pet-tool" id="btnAuto" title="开机自启" aria-label="开机自启" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 2-9 12h7l-2 8 9-12h-7z"/></svg></button>
+      <button class="pet-tool" id="btnHide" title="收起到任务栏（Ctrl+Alt+H 唤回）" aria-label="收起到任务栏">−</button>
+      <button class="pet-tool" id="btnClose" title="收起大肥鱼（任务栏或托盘唤回）" aria-label="收起大肥鱼">×</button>
+    </nav>
+    <nav class="pet-actions" data-interactive aria-label="和大肥鱼互动">
+      <button class="pet-action" id="petPat" aria-label="摸摸大肥鱼的头" title="摸摸头，也可以直接轻点头部"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 12V7a1.5 1.5 0 0 1 3 0v4-7a1.5 1.5 0 0 1 3 0v7-5a1.5 1.5 0 0 1 3 0v6-3a1.5 1.5 0 0 1 3 0v7c0 4-3 6-6 6-3 0-5-1-7-4l-3-4c-1-2 1-3 2-2l2 2"/></svg><span>摸摸头</span></button>
+      <button class="pet-action" id="petDance" aria-label="让大肥鱼跳个舞" title="跳个舞"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13M9 8l11-2"/><ellipse cx="6" cy="18" rx="3" ry="2"/><ellipse cx="17" cy="16" rx="3" ry="2"/></svg><span>跳个舞</span></button>
+      <button class="pet-action" id="petRest" aria-label="让大肥鱼休息" title="休息 / 叫醒"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15A9 9 0 0 1 9 4a9 9 0 1 0 11 11Z"/><path d="M15 3h5l-5 5h5"/></svg><span>休息</span></button>
+      <button class="pet-action" id="petMic" aria-label="点击麦克风，说一句口令；再次点击停止" aria-pressed="false" title="正在检查中文语音支持" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg><span>说句话</span></button>
+      <button class="pet-action" id="petAppearance" aria-label="切换桌面伙伴" aria-controls="appearancePanel" aria-expanded="false" title="切换伙伴"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3-5 3-2 5 4 2 2-3v11h10V10l2 3 4-2-2-5-5-3c0 4-8 4-8 0Z"/></svg><span>换伙伴</span></button>
+    </nav>
+    <section class="appearance-panel" id="appearancePanel" role="dialog" aria-labelledby="appearanceTitle" data-interactive hidden>
+      <div class="appearance-heading"><div><strong id="appearanceTitle">切换伙伴</strong><small>各自的形象、声音和对白</small></div><button id="appearanceClose" aria-label="关闭伙伴选择">×</button></div>
+      <div class="appearance-options" aria-label="可用伙伴">
+        <button class="appearance-choice" data-skin-choice="anime" aria-pressed="true"><span class="appearance-portrait"><img src="assets/xiaolan.png" alt="鲸鲸的蓝发二次元形象" draggable="false"></span><span class="appearance-name">鲸鲸 <b aria-hidden="true">✓</b></span><small>大肥鱼 · 二次元</small></button>
+        <button class="appearance-choice" data-skin-choice="realistic" aria-pressed="false"><span class="appearance-portrait"><img src="assets/human-selected-black.png" alt="小小的黑衣卷发半身像" draggable="false"></span><span class="appearance-name">小小 <b aria-hidden="true">✓</b></span><small>半身 · 真人伙伴</small></button>
+      </div>
+      <p>切换伙伴不影响待办和计时，自动记住选择。</p>
+    </section>
+    <div class="pet-particles" id="petParticles" aria-hidden="true"></div>
+    <div class="drag-handle" data-interactive title="按住此条拖动大肥鱼">⠿ 按住这里移动</div>
+    <nav class="pet-dock" data-interactive aria-label="快捷操作">
+      <button id="petTodos" title="展开待办清单" aria-controls="card" aria-expanded="false"><svg class="dock-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="3"/><path d="M9 3h6M9 10h6M9 15h4"/></svg>今日待办 <span id="petTodoCount">0</span></button>
+      <button id="petFocus" title="开始 / 暂停专注"><svg class="dock-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg><span id="petFocusText">专注 25:00</span></button>
+    </nav>
+  </section>
+  <div class="ghost-tip">鼠标穿透中 · Ctrl+Alt+G 恢复</div>
+  <div class="card" id="card">
+    <i class="flash-veil" id="flashVeil"></i>
+    <div class="binding" title="大肥鱼缎带"></div>
+
+    <div class="inner">
+      <header data-drag-handle>
+        <div class="date-block">
+          <div class="lunar" id="lunar">拾光</div>
+          <div class="big" id="today">—<em>加载中</em></div>
+        </div>
+        <div class="win-tools">
+          <button class="tool" id="btnFold" title="收起清单" aria-label="收起清单"><span class="chev">‹</span></button>
+        </div>
+      </header>
+
+      <!-- 折叠态：成就面板 -->
+      <div class="mini" id="mini" title="点击展开清单">
+        <div class="stats">
+          <div class="stat todo" id="statTodo">
+            <div class="num" id="numTodo">0</div>
+            <div class="cap">待办</div>
+          </div>
+          <div class="stat done" id="statDone">
+            <div class="num" id="numDone">0</div>
+            <div class="cap">已完成</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar"><i id="bar"></i><b id="knob"></b></div>
+          <span class="pct" id="pct">—</span>
+        </div>
+        <div class="cheer" id="cheer">记下今天的小目标 ♪</div>
+        <div class="foot">
+          <span class="acc" id="acc"></span>
+          <span class="expand-hint">点我展开 ▾</span>
+        </div>
+        <div class="pomo-strip" id="pomoStrip" title="点击开始 / 暂停番茄钟">
+          <span class="pt-icon">🍅</span>
+          <span class="pt-time" id="ptTime">25:00</span>
+          <span class="pt-mode" id="ptMode">专注</span>
+          <span class="pt-toms" id="ptToms"></span>
+          <span class="pt-btn" id="ptBtn">▶</span>
+          <i class="pt-bar"><b id="ptBar"></b></i>
+        </div>
+
+        <!-- 专注视图：倒计时为主 + 紧凑待办 -->
+        <div class="focus-face" id="focusFace">
+          <div class="ft-time" id="ftTime">25:00</div>
+          <div class="ft-sub">
+            <span class="ft-mode" id="ftMode">专注中</span>
+            <i class="ft-bar"><b id="ftBar"></b></i>
+          </div>
+          <div class="ft-todos" id="ftTodos"></div>
+          <button class="ft-pause" id="ftPause">❚❚ 暂停</button>
+        </div>
+      </div>
+
+      <!-- 展开态：完整清单 -->
+      <div class="full">
+        <div class="composer">
+          <div class="row">
+            <span class="brush">✎</span>
+            <input id="input" placeholder="记下今天要做的事…" maxlength="80" />
+          </div>
+          <div class="hint">回车记下 · 双击文字可改 · 点圈完成</div>
+        </div>
+        <div class="scroll" id="scroll">
+          <div class="section-label">今日待办 <span class="count" id="todoCount"></span></div>
+          <div id="todoList"></div>
+          <div class="empty" id="todoEmpty">从一件小事开始<br>记下第一件事 ♪</div>
+          <div id="doneWrap">
+            <div class="section-label" style="cursor:pointer">
+              已完成 <span class="count" id="doneCount"></span>
+              <button id="btnClear" title="清空已完成">清空</button>
+            </div>
+            <div id="doneList"></div>
+          </div>
+        </div>
+
+        <!-- 番茄钟 -->
+        <div class="pomo-card" id="pomoCard">
+          <div class="pomo-ring">
+            <svg viewBox="0 0 56 56"><circle class="ring-bg" cx="28" cy="28" r="23"/><circle class="ring-fg" id="ringFg" cx="28" cy="28" r="23"/></svg>
+            <span class="t" id="pomoTime">25:00</span>
+          </div>
+          <div class="pomo-right">
+            <div class="pomo-chips">
+              <button class="chip on" id="chipFocus" title="切换模式；点当前模式可循环时长">专注 25′</button>
+              <button class="chip" id="chipShort" title="切换模式；点当前模式可循环时长">小憩 5′</button>
+              <button class="chip" id="chipLong" title="切换模式；点当前模式可循环时长">长憩 15′</button>
+            </div>
+            <div class="pomo-actions">
+              <button class="pbtn" id="pomoBtn">▶ 开始专注</button>
+              <button class="pbtn ghost" id="pomoReset" title="重置本轮">↺</button>
+              <span class="pomo-dots" id="pomoDots"><i></i><i></i><i></i><i></i></span>
+              <span class="pomo-count" id="pomoCount"></span>
+            </div>
+            <div class="pomo-task" id="pomoTask">本次专注：自由专注</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seal">今日<br>事毕</div>
+  </div>
+
+<script src="companion-drag.js"></script>
+<script src="pet-dialogue.js"></script>
+<script src="human-dialogue.js"></script>
+<script src="pet-interactions.js"></script>
+<script>
+(() => {
+  const KEY = 'todo-widget-v2', OLD = 'todo-widget-v1';
+  const card = document.getElementById('card');
+
+  /* ---------------- 数据 ---------------- */
+  const dayKey = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+
+  function load(){
+    let d = null;
+    try{ d = JSON.parse(localStorage.getItem(KEY)); }catch(e){}
+    if (!d){
+      let old = null;
+      try{ old = JSON.parse(localStorage.getItem(OLD)); }catch(e){}
+      d = { todo: (old && old.todo) || [], done: (old && old.done) || [], totalDone: 0, history: {}, day: dayKey(new Date()), night: false };
+    }
+    d.todo = d.todo || []; d.done = d.done || []; d.history = d.history || {};
+    d.totalDone = d.totalDone || 0;
+    return d;
+  }
+  const data = load();
+  const save = () => localStorage.setItem(KEY, JSON.stringify(data));
+
+  // 番茄钟数据（含默认值）
+  data.pomo = Object.assign({ count: 0, total: 0, day: data.day, round: 0, mode: 'focus',
+    running: false, endsAt: 0, remain: 25 * 60000, focusMin: 25, shortMin: 5, longMin: 15 }, data.pomo || {});
+
+  // 夜间模式（尽早应用，避免闪烁）
+  if (data.night){ document.body.classList.add('night'); }
+  document.getElementById('btnNight').textContent = data.night ? '☀️' : '🌙';
+
+  // 跨天：昨日完成数归档进累计，待办顺延
+  (function rotateDay(){
+    const today = dayKey(new Date());
+    if (data.day !== today){
+      if (data.done.length){
+        data.totalDone += data.done.length;
+        data.history[data.day] = data.done.length;
+        data.lastDone = data.done.length;
+      } else if (data.day) { data.lastDone = 0; }
+      data.done = [];
+      data.day = today;
+      // 番茄钟跨天结算：今日番茄数并入累计
+      if (data.pomo.day !== today){
+        data.pomo.total += data.pomo.count;
+        data.pomo.count = 0;
+        data.pomo.round = 0;
+        data.pomo.day = today;
+      }
+      save();
+    }
+  })();
+
+  /* ---------------- 吉祥物表情 ---------------- */
+  const mascotEl = document.getElementById('mascot');
+  let companion = null;
+  const MOODS = ['idle', 'happy', 'sleep', 'star', 'focus'];
+  let tempMood = null, tempMoodTimer = null;
+  function moodBase(){
+    if (data.pomo.running) return data.pomo.mode === 'focus' ? 'focus' : 'sleep';
+    const total = data.todo.length + data.done.length;
+    if (total > 0 && data.todo.length === 0) return 'star';
+    return 'idle';
+  }
+  function applyMood(){
+    const m = tempMood || moodBase();
+    MOODS.forEach(x => mascotEl.classList.toggle('mood-' + x, x === m));
+    companion?.syncMood(m);
+    renderCompanion();
+  }
+  function flashMood(m, ms){
+    tempMood = m; clearTimeout(tempMoodTimer);
+    tempMoodTimer = setTimeout(() => { tempMood = null; applyMood(); }, ms || 1600);
+    applyMood();
+  }
+  mascotEl.addEventListener('click', e => {
+    e.stopPropagation();
+    companion?.click(e);
+  });
+
+  /* ---------------- 桌面角色 ---------------- */
+  let speechUntil = 0;
+  const speechEl = document.getElementById('petSpeech');
+  function speak(text, duration = 4200) {
+    speechUntil = Date.now() + duration;
+    speechEl.textContent = text;
+    speechEl.title = text;
+  }
+  function renderCompanion() {
+    const p = data.pomo;
+    const total = data.todo.length + data.done.length;
+    document.getElementById('petTodoCount').textContent = data.todo.length;
+    const focusButton = document.getElementById('petFocus');
+    focusButton.classList.toggle('running', p.running);
+    focusButton.title = p.running ? '暂停计时' : (p.mode === 'focus' ? '开始专注' : '开始休息');
+    document.getElementById('petFocusText').textContent = (p.running ? '暂停 ' : (p.mode === 'focus' ? '专注 ' : '休息 ')) + fmtRemain(p.remain);
+    document.getElementById('petStatus').textContent = companion?.status() || (p.running ? (p.mode === 'focus' ? '· 专注陪伴' : '· 休息时间') : '· 在你身边');
+    if (Date.now() < speechUntil) return;
+    const text = p.running
+      ? (p.mode === 'focus' ? '我在这里陪你，安心做眼前的事。' : '辛苦啦，伸个懒腰、喝口水吧。')
+      : total > 0 && !data.todo.length ? '今天的待办都完成啦，你真棒！'
+      : companion?.idleText(data.todo.length) || '今天想做些什么？';
+    if (speechEl.textContent !== text) { speechEl.textContent = text; speechEl.title = text; }
+  }
+  const togglePanel = () => setCollapsed(!document.body.classList.contains('collapsed'));
+  document.getElementById('petTodos').onclick = togglePanel;
+  document.getElementById('petBubble').onclick = togglePanel;
+  document.getElementById('petFocus').onclick = () => pomoStartPause();
+  mascotEl.ondblclick = togglePanel;
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') setCollapsed(true); });
+  document.getElementById('characterArt').onerror = () => {
+    document.getElementById('petFallback').hidden = false;
+  };
+  // Windows 下自动整窗穿透会让 pointerdown 落到后面的应用。
+  // 正常状态保持窗口可交互，整窗穿透仅由 Ctrl+Alt+G 主动开启。
+  setInterval(renderCompanion, 1000);
+
+  /* ---------------- 头部日期 ---------------- */
+  const WEEK = ['周日','周一','周二','周三','周四','周五','周六'];
+  const MONTH = ['岁末','孟春','仲春','暮春','孟夏','仲夏','暮夏','孟秋','仲秋','暮秋','孟冬','仲冬'];
+  const now = new Date();
+  document.getElementById('today').innerHTML = `${now.getMonth()+1}月${now.getDate()}日<em>${WEEK[now.getDay()]}</em>`;
+  document.getElementById('lunar').textContent = MONTH[now.getMonth()] + ' · ' + WEEK[now.getDay()];
+
+  /* ---------------- 数字滚动 ---------------- */
+  const shown = { numTodo: 0, numDone: 0 };
+  function setNum(el, val){
+    const from = shown[el.id] || 0;
+    if (from === val){ el.textContent = val; return; }
+    shown[el.id] = val;
+    const t0 = performance.now(), dur = 420;
+    (function step(t){
+      const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(from + (val - from) * e);
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  /* ---------------- 成就面板 ---------------- */
+  let wasCleared = false;
+  function renderMini(first){
+    const todo = data.todo.length, done = data.done.length, total = todo + done;
+    setNum(document.getElementById('numTodo'), todo);
+    setNum(document.getElementById('numDone'), done);
+
+    const pct = total ? Math.round(done / total * 100) : 0;
+    document.getElementById('bar').style.width = pct + '%';
+    document.getElementById('knob').style.left = `calc(${pct}% - 7px)`;
+    document.getElementById('pct').textContent = total ? pct + '%' : '—';
+
+    let cheer;
+    if (total === 0) cheer = '还没有待办哦，记一件吧 ♪';
+    else if (todo === 0) cheer = '全部完成！' + (companion?.characterName() || '伙伴') + '为你鼓掌 🎉';
+    else if (done === 0) cheer = `还有 <b>${todo}</b> 件，加油鸭 ✊`;
+    else cheer = `已完成 <b>${done}</b> 件 · 还剩 <b>${todo}</b> 件`;
+    document.getElementById('cheer').innerHTML = cheer;
+
+    const acc = [];
+    if (data.lastDone) acc.push(`昨日 ${data.lastDone} 件`);
+    if (data.totalDone) acc.push(`累计 ${data.totalDone} 件`);
+    if (data.pomo.count) acc.push(`🍅 ${data.pomo.count}`);
+    document.getElementById('acc').textContent = acc.length ? acc.join(' · ') : '新的一天开始啦';
+
+    const cleared = total > 0 && todo === 0;
+    card.classList.toggle('allclear', cleared);
+    if (cleared && !wasCleared && !first){ celebrate(); }
+    wasCleared = cleared;
+
+    if (!first){
+      const s = document.getElementById(cleared ? 'statDone' : 'statTodo');
+      s.classList.remove('bump'); void s.offsetWidth; s.classList.add('bump');
+    }
+    applyMood();
+  }
+
+  /* ---------------- 清单渲染 ---------------- */
+  function el(tag, cls, html){ const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+  function makeItem(text){
+    const item = el('div', 'item');
+    const check = el('button', 'check', '<svg viewBox="0 0 20 20"><circle class="ring" cx="10" cy="10" r="8.2"/><path class="tick" d="M5.5 10.2 L8.8 13.4 L14.6 6.6"/></svg>');
+    check.setAttribute('aria-label', (data.done.includes(text) ? '撤销完成：' : '完成：') + text);
+    const textEl = el('div', 'text'); textEl.textContent = text;
+    const del = el('button', 'del', '✕'); del.title = '删除';
+
+    check.onclick = ev => {
+      const isDone = data.done.includes(text);
+      if (isDone){ undo(text); return; }
+      if (item.classList.contains('done')) return;
+      item.classList.add('done');
+      flashMood('happy');
+      const r = card.getBoundingClientRect();
+      spawnFloat(ev.clientX - r.left, ev.clientY - r.top, ['+1 真棒！','+1 好耶！','+1 完成 ♪','太棒啦！'][Math.floor(Math.random()*4)]);
+      setTimeout(() => moveToDone(text), 470);
+    };
+    del.onclick = ev => { ev.stopPropagation(); removeText(text); };
+
+    textEl.ondblclick = () => {
+      textEl.contentEditable = 'true'; textEl.focus();
+      const sel = getSelection(); sel.selectAllChildren(textEl);
+      const finish = ev => {
+        if (ev.type !== 'blur' && ev.key !== 'Enter') return;
+        const v = textEl.textContent.trim();
+        if (v && v !== text) updateText(text, v);
+        textEl.contentEditable = 'false'; textEl.onblur = textEl.onkeydown = null;
+      };
+      textEl.onblur = textEl.onkeydown = finish;
+    };
+    item.append(check, textEl, del);
+    return item;
+  }
+
+  function render(first){
+    const todoList = document.getElementById('todoList'), doneList = document.getElementById('doneList');
+    todoList.innerHTML = ''; doneList.innerHTML = '';
+    data.todo.forEach(t => todoList.appendChild(makeItem(t)));
+    data.done.forEach(t => doneList.appendChild(makeItem(t)));
+    document.getElementById('todoEmpty').style.display = data.todo.length ? 'none' : 'block';
+    document.getElementById('todoCount').textContent = data.todo.length || '';
+    document.getElementById('doneCount').textContent = data.done.length || '';
+    document.getElementById('doneWrap').style.display = data.done.length ? 'block' : 'none';
+    save(); renderMini(first); renderPomo(); renderFocusTodos();
+  }
+
+  function add(text){
+    text = (text || '').trim(); if (!text) return;
+    if (data.done.includes(text)) data.done = data.done.filter(t => t !== text);
+    data.todo.unshift(text); render();
+  }
+  function removeText(t){ data.todo = data.todo.filter(x => x !== t); data.done = data.done.filter(x => x !== t); render(); }
+  function updateText(o, n){
+    let i = data.todo.indexOf(o); if (i > -1) data.todo[i] = n;
+    i = data.done.indexOf(o); if (i > -1) data.done[i] = n;
+    render();
+  }
+  function moveToDone(t){ data.todo = data.todo.filter(x => x !== t); data.done.unshift(t); render(); }
+  function undo(t){ data.done = data.done.filter(x => x !== t); data.totalDone = Math.max(0, data.totalDone - 1); data.todo.unshift(t); render(); }
+
+  /* ---------------- 特效 ---------------- */
+  function spawnFloat(x, y, text){
+    if (document.body.classList.contains('collapsed')) { speak(text); return; }
+    const s = document.createElement('span');
+    s.className = 'float'; s.textContent = text;
+    s.style.left = x + 'px'; s.style.top = y + 'px';
+    card.appendChild(s); setTimeout(() => s.remove(), 1150);
+  }
+  function celebrate(){
+    const colors = ['#6ea8ff','#ff8fab','#ffd166','#7fd8c0'];
+    for (let i = 0; i < 20; i++){
+      const c = document.createElement('i');
+      c.className = 'confetti';
+      const size = 7 + Math.random() * 6;
+      c.style.cssText = `width:${size}px;height:${size}px;left:${20 + Math.random()*300}px;top:${10 + Math.random()*30}px;background:${colors[i%4]};--dx:${(Math.random()*70-35).toFixed(0)}px;--rot:${(Math.random()*300-150).toFixed(0)}deg;animation-delay:${(Math.random()*.35).toFixed(2)}s`;
+      card.appendChild(c); setTimeout(() => c.remove(), 2000);
+    }
+    const r = card.getBoundingClientRect();
+    spawnFloat(r.width/2 - 40, r.height/2, '好耶 ✦ 全部完成');
+    flashMood('star', 2400);
+  }
+
+  /* ---------------- 番茄钟引擎 ---------------- */
+  const POMO_PRESETS = { focus: [25, 45, 60], short: [5, 10, 15], long: [15, 30, 45] };
+  const RING_C = 2 * Math.PI * 23;           // ≈144.51
+  const pad2 = n => String(n).padStart(2, '0');
+  const pomoDuration = () => data.pomo[data.pomo.mode + 'Min'] * 60000;
+  const pomoLabel = () => ({ focus: '专注', short: '小憩', long: '长憩' })[data.pomo.mode];
+
+  let actx = null;
+  function ensureAudio(){
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === 'suspended') actx.resume();
+    } catch (e) {}
+  }
+  function beep(times, freq){
+    try {
+      ensureAudio();
+      if (!actx) return;
+      for (let i = 0; i < times; i++){
+        const o = actx.createOscillator(), g = actx.createGain();
+        o.type = 'sine'; o.frequency.value = freq;
+        o.connect(g); g.connect(actx.destination);
+        const t = actx.currentTime + 0.05 + i * 0.32;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.22, t + 0.03);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
+        o.start(t); o.stop(t + 0.32);
+      }
+    } catch (e) {}
+  }
+  function flashPomo(){
+    const v = document.getElementById('flashVeil');
+    v.classList.add('on');
+    setTimeout(() => v.classList.remove('on'), 2600);
+  }
+
+  function pomoRatio(){
+    const d = pomoDuration();
+    return d > 0 ? Math.min(1, Math.max(0, data.pomo.remain / d)) : 0;
+  }
+  function fmtRemain(ms){
+    const s = Math.max(0, Math.ceil(ms / 1000));
+    return pad2(Math.floor(s / 60)) + ':' + pad2(s % 60);
+  }
+
+  function pomoStartPause(){
+    const p = data.pomo;
+    ensureAudio();
+    if (p.running){
+      p.remain = Math.max(0, p.endsAt - Date.now());
+      p.running = false;
+    } else {
+      if (p.remain <= 0) p.remain = pomoDuration();
+      p.endsAt = Date.now() + p.remain;
+      p.running = true;
+    }
+    save(); renderPomo();
+  }
+  function pomoReset(){
+    const p = data.pomo;
+    p.running = false;
+    p.remain = pomoDuration();
+    save(); renderPomo();
+  }
+  function pomoSwitchMode(mode){
+    const p = data.pomo;
+    p.mode = mode; p.running = false; p.remain = pomoDuration();
+    save(); renderPomo();
+  }
+  function pomoCyclePreset(mode){
+    const p = data.pomo;
+    const presets = POMO_PRESETS[mode];
+    const key = mode + 'Min';
+    const i = presets.indexOf(p[key]);
+    p[key] = presets[(i + 1) % presets.length];
+    if (p.mode === mode){ p.remain = pomoDuration(); p.running = false; }
+    save(); renderPomo();
+  }
+  function chipClick(mode){
+    if (data.pomo.mode === mode) pomoCyclePreset(mode);
+    else pomoSwitchMode(mode);
+  }
+
+  function pomoComplete(){
+    const p = data.pomo;
+    p.running = false;
+    const r = card.getBoundingClientRect();
+    if (p.mode === 'focus'){
+      p.count++; p.total++; p.round++;
+      save();
+      beep(3, 880);
+      flashPomo();
+      flashMood('happy', 2600);
+      spawnFloat(r.width / 2 - 44, 30, '🍅 完成一个番茄！');
+      try { window.widget.nudge('🍅 完成一个番茄！起来活动一下，休息开始'); } catch (e) {}
+      // 自动进入休息：每 4 个番茄来一次长憩
+      p.mode = (p.round % 4 === 0) ? 'long' : 'short';
+      p.remain = pomoDuration();
+      p.endsAt = Date.now() + p.remain;
+      p.running = true;
+    } else {
+      beep(2, 660);
+      flashPomo();
+      flashMood('happy', 2600);
+      spawnFloat(r.width / 2 - 70, 30, '休息结束，开始下一个番茄 ▶');
+      try { window.widget.nudge('休息结束，点 ▶ 开始下一个番茄'); } catch (e) {}
+      p.mode = 'focus';
+      p.remain = pomoDuration();
+    }
+    save(); renderPomo();
+  }
+
+  function updatePomoDisplay(){
+    const t = fmtRemain(data.pomo.remain), ratio = pomoRatio();
+    document.getElementById('ptTime').textContent = t;
+    document.getElementById('pomoTime').textContent = t;
+    document.getElementById('ftTime').textContent = t;
+    document.getElementById('ringFg').style.strokeDashoffset = (RING_C * (1 - ratio)).toFixed(2);
+    document.getElementById('ptBar').style.width = (ratio * 100) + '%';
+    document.getElementById('ftBar').style.width = (ratio * 100) + '%';
+    renderCompanion();
+  }
+
+  function renderPomo(){
+    const p = data.pomo;
+    const t = fmtRemain(p.remain), ratio = pomoRatio();
+    const label = pomoLabel();
+
+    // 折叠条
+    document.getElementById('ptTime').textContent = t;
+    document.getElementById('ptMode').textContent = label;
+    document.getElementById('ptBtn').textContent = p.running ? '❚❚' : '▶';
+    document.getElementById('ptToms').textContent = p.count > 0
+      ? '🍅'.repeat(Math.min(p.count, 4)) + (p.count > 4 ? '×' + p.count : '') : '';
+    document.getElementById('ptBar').style.width = (ratio * 100) + '%';
+    const strip = document.getElementById('pomoStrip');
+    strip.classList.toggle('running', p.running);
+    strip.classList.toggle('break', p.mode !== 'focus');
+    strip.classList.toggle('long', p.mode === 'long');
+
+    // 展开卡片
+    document.getElementById('pomoTime').textContent = t;
+    document.getElementById('ringFg').style.strokeDashoffset = (RING_C * (1 - ratio)).toFixed(2);
+    const cardEl = document.getElementById('pomoCard');
+    cardEl.classList.toggle('break', p.mode === 'short');
+    cardEl.classList.toggle('long', p.mode === 'long');
+    document.getElementById('chipFocus').textContent = `专注 ${p.focusMin}′`;
+    document.getElementById('chipShort').textContent = `小憩 ${p.shortMin}′`;
+    document.getElementById('chipLong').textContent = `长憩 ${p.longMin}′`;
+    ['focus', 'short', 'long'].forEach((m, i) => {
+      document.getElementById(['chipFocus', 'chipShort', 'chipLong'][i]).classList.toggle('on', m === p.mode);
+    });
+    document.getElementById('pomoBtn').textContent = p.running
+      ? '❚❚ 暂停' : (p.mode === 'focus' ? '▶ 开始专注' : '▶ 开始休息');
+    document.getElementById('pomoCount').textContent = p.count > 0 ? `今日 ${p.count} 个番茄` : '';
+    const dots = document.getElementById('pomoDots').children;
+    const filled = p.round % 4;
+    for (let i = 0; i < 4; i++) dots[i].classList.toggle('on', i < filled);
+    document.getElementById('pomoTask').textContent = '本次专注：' + (data.todo[0] || '自由专注');
+
+    // 专注视图
+    document.body.classList.toggle('focusing', p.running);
+    document.getElementById('ftTime').textContent = t;
+    document.getElementById('ftMode').textContent = p.running ? (label + '中') : label;
+    document.getElementById('ftBar').style.width = (ratio * 100) + '%';
+    document.getElementById('ftPause').textContent = p.running ? '❚❚ 暂停' : '▶ 继续';
+    applyMood();
+    syncHeight();
+  }
+
+  /* 专注视图里的紧凑待办（最多 3 条，点圈完成） */
+  function renderFocusTodos(){
+    const box = document.getElementById('ftTodos');
+    box.innerHTML = '';
+    const items = data.todo.slice(0, 3);
+    if (!items.length){
+      const e = document.createElement('div');
+      e.className = 'ft-empty';
+      e.textContent = data.done.length ? '今日待办已清零 ✦' : '暂无待办，展开记一件 ✎';
+      box.appendChild(e);
+      return;
+    }
+    items.forEach(t => {
+      const row = document.createElement('div');
+      row.className = 'ft-item';
+      const dot = document.createElement('i'); dot.className = 'dot';
+      const txt = document.createElement('span'); txt.className = 'txt'; txt.textContent = t;
+      row.append(dot, txt);
+      row.onclick = ev => {
+        ev.stopPropagation();
+        if (row.classList.contains('done')) return;
+        row.classList.add('done');
+        flashMood('happy');
+        setTimeout(() => moveToDone(t), 300);
+      };
+      box.appendChild(row);
+    });
+  }
+
+  function pomoTick(){
+    const p = data.pomo;
+    if (!p.running) return;
+    p.remain = p.endsAt - Date.now();
+    if (p.remain <= 0){ p.remain = 0; pomoComplete(); return; }
+    updatePomoDisplay();
+  }
+
+  /* ---------------- 展开 / 折叠 ---------------- */
+  let lastLayout = '';
+  function syncHeight(){
+    const layout = document.body.classList.contains('collapsed') ? 'companion' : 'expanded';
+    if (layout !== lastLayout){ lastLayout = layout; window.widget.setLayout(layout); }
+  }
+
+  function setCollapsed(v, first){
+    document.body.classList.toggle('collapsed', v);
+    if (v){ document.activeElement && document.activeElement.blur(); }
+    lastLayout = ''; syncHeight();
+    document.getElementById('petTodos').setAttribute('aria-expanded', String(!v));
+    document.getElementById('petBubble').setAttribute('aria-expanded', String(!v));
+    card.setAttribute('aria-hidden', String(v));
+    if (!v && !first) setTimeout(() => document.getElementById('input').focus(), 60);
+  }
+
+  /* ---------------- 事件 ---------------- */
+  document.getElementById('input').addEventListener('keydown', e => {
+    if (e.key === 'Enter'){ add(e.target.value); e.target.value = ''; }
+  });
+  document.getElementById('mini').onclick = () => setCollapsed(false);
+  document.getElementById('btnFold').onclick = () => setCollapsed(!document.body.classList.contains('collapsed') ? true : false);
+  document.getElementById('btnClear').onclick = e => { e.stopPropagation(); data.done.forEach(() => data.totalDone++); data.done = []; render(); };
+
+  document.getElementById('btnNight').onclick = e => {
+    e.stopPropagation();
+    data.night = !document.body.classList.contains('night');
+    document.body.classList.toggle('night', data.night);
+    e.currentTarget.textContent = data.night ? '☀️' : '🌙';
+    save();
+  };
+
+  let pinned = true;
+  document.getElementById('btnPin').onclick = e => {
+    e.stopPropagation();
+    pinned = !pinned;
+    e.currentTarget.classList.toggle('on', pinned);
+    e.currentTarget.setAttribute('aria-pressed', String(pinned));
+    window.widget.pin(pinned);
+  };
+
+  /* 开机自启开关 */
+  const btnAuto = document.getElementById('btnAuto');
+  function paintAuto(on){
+    btnAuto.classList.toggle('on', !!on);
+    btnAuto.setAttribute('aria-pressed', String(!!on));
+    btnAuto.title = on ? '开机自启：已开启（点击关闭）' : '开机自启：已关闭（点击开启）';
+  }
+  btnAuto.onclick = async e => {
+    e.stopPropagation();
+    const wasOn = btnAuto.classList.contains('on');
+    let now = wasOn;
+    try { now = await window.widget.setAutostart(!wasOn); }
+    catch (err) { now = wasOn; }
+    paintAuto(now);
+    const r = card.getBoundingClientRect(), br = btnAuto.getBoundingClientRect();
+    spawnFloat(br.left - r.left - 20, br.top - r.top + 24, now ? '开机自启 已开启 ✓' : '开机自启 已关闭');
+  };
+  window.widget.getAutostart().then(paintAuto).catch(() => {});
+  document.getElementById('btnHide').onclick = e => { e.stopPropagation(); window.widget.hide(); };
+  document.getElementById('btnClose').onclick = e => {
+    e.stopPropagation();
+    const r = card.getBoundingClientRect(), br = e.currentTarget.getBoundingClientRect();
+    spawnFloat(br.left - r.left - 58, br.top - r.top + 24, '已收起 · 任务栏/托盘唤回');
+    setTimeout(() => window.widget.close(), 350);
+  };
+
+  window.widget.onGhost(on => document.body.classList.toggle('ghost', on));
+  document.getElementById('scroll').addEventListener('dblclick', e => { if (e.target.id === 'scroll') setCollapsed(true); });
+
+  /* 番茄钟事件 */
+  document.getElementById('pomoBtn').onclick = e => { e.stopPropagation(); pomoStartPause(); };
+  document.getElementById('pomoReset').onclick = e => { e.stopPropagation(); pomoReset(); };
+  document.getElementById('pomoStrip').onclick = e => { e.stopPropagation(); pomoStartPause(); };
+  document.getElementById('ftPause').onclick = e => { e.stopPropagation(); pomoStartPause(); };
+  document.getElementById('chipFocus').onclick = e => { e.stopPropagation(); chipClick('focus'); };
+  document.getElementById('chipShort').onclick = e => { e.stopPropagation(); chipClick('short'); };
+  document.getElementById('chipLong').onclick = e => { e.stopPropagation(); chipClick('long'); };
+
+  companion = window.createPetInteractions({
+    say: speak,
+    onMood: flashMood,
+    onCharacterChange: () => { clearTimeout(tempMoodTimer); tempMood = null; renderMini(true); },
+    onCommand: id => {
+      if (id === 'focus') {
+        if (data.pomo.mode !== 'focus') pomoSwitchMode('focus');
+        if (!data.pomo.running) pomoStartPause();
+      } else if (id === 'pause') {
+        if (data.pomo.running) pomoStartPause();
+      } else if (id === 'open') setCollapsed(false);
+    }
+  });
+  render(true);
+  // 恢复上次未走完的番茄（含程序重启）
+  (function pomoResume(){
+    const p = data.pomo;
+    const overdue = Date.now() - (p.endsAt || 0);
+    if (p.running && overdue > 10 * 60000){
+      // 关了很久（电脑关机/程序长期未运行）：视为作废，不补结算、不响铃
+      p.running = false;
+      p.remain = pomoDuration();
+    } else if (p.running){
+      p.remain = p.endsAt - Date.now();
+      if (p.remain <= 0){ p.remain = 0; pomoComplete(); }
+    } else if (p.remain <= 0){
+      p.remain = pomoDuration();
+    }
+  })();
+  renderPomo();
+  setInterval(pomoTick, 250);
+  setCollapsed(true, true);
+})();
+</script>
+</body>
+</html>

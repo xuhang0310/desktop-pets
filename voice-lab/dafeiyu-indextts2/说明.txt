@@ -1,5 +1,15 @@
 鲸鲸 / 大肥鱼 — IndexTTS-2 本地复刻语音
 
+当前采用用户确认的 A 版，完整语音包为 ../../assets/voice-dafeiyu-indextts2-a/，共 19 段。
+参考音频为 calibration/reference-voice-only.wav，视频区间 1.74–4.98 秒，只保留说话片段。
+前三段确认样本以及“你天天跟GPT聊天，不跟你好了！”沿用原文件；其余 15 段使用相同 A 版设置生成。
+A 版没有额外变调、变速或均衡处理，只统一响度。小小保留原有独立音色。
+当前制作脚本：../../scripts/generate-approved-a-voice.py。
+当前母版及生成报告：calibration/pack-a-masters/、calibration/pack-a-generation-report.json。
+用户的选择与后续全部完成授权：calibration/selection.json。
+
+以下为第一次复刻的历史记录，相关语音包已由 A 版替代：
+
 视频由 E:\workspace\douyin-video-analysis\backend\app\services\douyin.py 下载。
 原视频：E:\workspace\douyin-video-analysis\downloads\jingjing-7691408979201434728\source.mp4
 来源：https://v.douyin.com/qIdt3_8KC0A/
@@ -24,6 +34,11 @@ Windows 旧版听写引擎对此参考音频置信度很低，其结果不用于
 无损母版：pack-masters/；逐段文本、生成参数、音频指标和文件 SHA256：pack-generation-report.json。
 MP3 使用 FFmpeg 统一响度至 -18 LUFS、真峰值目标 -2 dB，避免切换对白时音量忽大忽小。
 小小使用自己的 voice-human 语音包，不使用鲸鲸的音色。
+
+正式包验收（2026-10-07）：18 段共约 80.7 秒，单段 3.1–8.1 秒，MP3 总大小约 627 KiB。
+WAV 和 MP3 均完成数值、响度幅度及削波检查；重复执行生成脚本可校验并跳过全部 18 段。
+npm run test:interaction 通过：两位伙伴共 36 段音频由 Chromium 解码，检查实际播放路径、对白一致、点击动作、静音、连续点击及伙伴切换。
+已刷新正在运行的桌面鲸鲸，观察到点击后的“正在说话”状态。
 
 重新生成正式语音：使用 D:\workspace\index-tts2\.venv\Scripts\python.exe 运行 ../../scripts/generate-indextts-voice.py。
 默认跳过文本、参考音频、设置及文件校验值均一致的片段；可用 --line hello-1 --force 指定重做。

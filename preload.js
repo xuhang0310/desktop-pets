@@ -20,3 +20,17 @@ contextBridge.exposeInMainWorld('widget', {
   setAutostart: (on) => ipcRenderer.invoke('autostart:set', on),
   nudge: (msg) => ipcRenderer.send('window:nudge', msg)
 });
+
+contextBridge.exposeInMainWorld('petChat', {
+  getConfig: () => ipcRenderer.invoke('config:get'),
+  saveConfig: input => ipcRenderer.invoke('config:save', input),
+  send: input => ipcRenderer.invoke('chat:send', input),
+  cancel: () => ipcRenderer.send('chat:cancel'),
+  getMemory: persona => ipcRenderer.invoke('chat:memory', persona),
+  clearMemory: persona => ipcRenderer.invoke('chat:clear-memory', persona),
+  onEvent: callback => {
+    const listener = (_event, data) => callback(data);
+    ipcRenderer.on('chat:event', listener);
+    return () => ipcRenderer.removeListener('chat:event', listener);
+  }
+});

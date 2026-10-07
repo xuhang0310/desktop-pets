@@ -35,7 +35,7 @@ window.createPetInteractions = function ({ say, onCommand, onMood, onCharacterCh
   Object.values(skins).flatMap(item => Object.values(item.poses)).forEach(src => { const image = new Image(); image.src = src; });
   let muted = localStorage.getItem('xiaolan-muted') === 'true';
   let action = 'idle', baseMood = 'idle', sleeping = false, actionTimer;
-  let listening = false, supported = false, micRun = 0, playbackRun = 0;
+  let listening = false, supported = false, supportCheck = null, waitingSupport = false, micRun = 0, playbackRun = 0;
   let currentLine = '', previousLines = new Map();
 
   function setPose(pose) {
@@ -217,7 +217,15 @@ window.createPetInteractions = function ({ say, onCommand, onMood, onCharacterCh
 
   async function listen() {
     if (listening) { cancelListen(); say('这次先不听啦。想聊时再点麦克风。'); return; }
-    if (!supported) { say('语音还没准备好。请用“启动便签”启动我，也可以先点按钮玩。', 6500); return; }
+    if (!supported) {
+      if (waitingSupport) return;
+      // Re-check on demand: the startup check may have failed only because PowerShell started slowly.
+      waitingSupport = true;
+      say('正在检查语音识别，请稍等……', 15000);
+      const result = await checkSupport();
+      waitingSupport = false;
+      if (!supported) { say(supportMessage(result), 12000); return; }
+    }
     stopVoice();
     clearTimeout(actionTimer);
     sleeping = false;
@@ -248,12 +256,26 @@ window.createPetInteractions = function ({ say, onCommand, onMood, onCharacterCh
     paintMic(state);
     if (state === 'listening') say('我在听，说“你好”“跳个舞”或“开始专注”吧。', 12000);
   });
-  Promise.resolve(window.widget.getVoiceSupport?.()).then(result => {
-    supported = !!result?.supported;
-    mic.disabled = false;
-    paintMicHelp();
-    mic.classList.toggle('unavailable', !supported);
-  }).catch(() => { mic.disabled = false; mic.title = '语音识别暂不可用'; });
+  function supportMessage(result) {
+    if (result?.launcher === false) return '语音要通过“启动便签”或 npm start 启动才能用。请关掉我，再用它们重新打开。';
+    if (result?.status === 'unsupported') return '这台电脑没有中文（zh-CN）语音识别。请在 Windows 设置 → 时间和语言 → 语言 → 中文（简体）→ 语言选项里安装“语音识别”，装好后再点我。';
+    if (result?.status === 'timeout') return '语音识别启动太慢，这次没来得及准备好。再点一次麦克风试试。';
+    return '语音识别暂不可用' + (result?.detail ? '：' + result.detail : '') + '。也可以先点按钮和我玩。';
+  }
+  function checkSupport() {
+    return supportCheck || (supportCheck = Promise.resolve(window.widget.getVoiceSupport?.())
+      .catch(() => ({ status: 'unavailable' }))
+      .then(result => {
+        supported = !!result?.supported;
+        mic.disabled = false;
+        paintMicHelp();
+        if (!supported) mic.title = supportMessage(result);
+        mic.classList.toggle('unavailable', !supported);
+        return result;
+      })
+      .finally(() => { supportCheck = null; }));
+  }
+  checkSupport();
   document.getElementById('petPat').onclick = () => respond('pat');
   document.getElementById('petDance').onclick = () => respond('dance');
   rest.onclick = () => respond(sleeping ? 'wake' : 'sleep');

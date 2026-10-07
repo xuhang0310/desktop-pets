@@ -49,11 +49,15 @@ function createVoiceBridge(directory, { onState = () => {} } = {}) {
       timeout = setTimeout(() => {
         try { fs.writeFileSync(cancel, 'cancel'); } catch (_) {}
         finish({ status: 'timeout' });
-      }, mode === 'check' ? 7000 : 16000);
+      }, 16000);
     });
   }
   return {
-    support: () => supportPromise || (supportPromise = launch('check')),
+    // Only a successful check is cached; a slow or failed one is retried on the next click.
+    support() {
+      if (!supportPromise) supportPromise = launch('check').then(result => { if (!result.supported) supportPromise = null; return result; });
+      return supportPromise;
+    },
     listen: () => launch('listen'),
     cancel() { if (!active) return false; active.stop(); return true; },
     // Only used by the explicit launcher probe. The normal host rejects file mode.

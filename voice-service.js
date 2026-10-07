@@ -56,11 +56,15 @@ function createVoiceService({ onState = () => {} } = {}) {
       child.stderr.resume();
       child.on('error', () => finish({ status: 'unavailable', supported: false }));
       child.on('close', () => { if (buffer.trim()) readLine(buffer.trim()); finish(last || { status: 'unavailable', supported: false }); });
-      timer = setTimeout(() => { child.kill(); finish({ status: 'timeout', supported: false }); }, mode === 'listen' ? 14000 : 6000);
+      timer = setTimeout(() => { child.kill(); finish({ status: 'timeout', supported: false }); }, mode === 'listen' ? 14000 : 12000);
     });
   }
   return {
-    support: () => supportPromise || (supportPromise = launch('check')),
+    // Only a successful check is cached; a slow or failed one is retried on the next click.
+    support() {
+      if (!supportPromise) supportPromise = launch('check').then(result => { if (!result.supported) supportPromise = null; return result; });
+      return supportPromise;
+    },
     listen: () => launch('listen'),
     cancel() {
       if (!active) return false;

@@ -411,9 +411,12 @@ if (flag) {
 app.on('window-all-closed', () => { if ((!trayOk && !hideHotkeyOk) || quitting) app.quit(); });
 
 /* ---------------- IPC ---------------- */
-ipcMain.handle('voice:support', event => {
+ipcMain.handle('voice:support', async event => {
   if (!windowAlive() || event.sender !== win.webContents) return { supported: false };
-  return voiceService.support();
+  const result = await voiceService.support();
+  if (!result.supported) log('voice support', { status: result.status, errorCode: result.errorCode, detail: result.detail, stage: result.stage });
+  // launcher: started through voice-host.ps1 (启动便签 / npm start), which the recognizer needs on this machine.
+  return { ...result, launcher: !!process.env.WIDGET_VOICE_BRIDGE };
 });
 ipcMain.handle('voice:listen', async event => {
   if (!windowAlive() || event.sender !== win.webContents || ghost || !win.isVisible() || win.isMinimized()) return { status: 'cancelled' };

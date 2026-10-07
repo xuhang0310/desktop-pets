@@ -1,0 +1,146 @@
+[
+  {
+    "start": 0.0,
+    "frames": 0,
+    "rms": 0.0004,
+    "f0_median": null
+  },
+  {
+    "start": 0.25,
+    "frames": 18,
+    "rms": 0.0008,
+    "f0_median": 100.8
+  },
+  {
+    "start": 0.5,
+    "frames": 16,
+    "rms": 0.0007,
+    "f0_median": 100.5
+  },
+  {
+    "start": 0.75,
+    "frames": 4,
+    "rms": 0.0021,
+    "f0_median": 99.1
+  },
+  {
+    "start": 1.0,
+    "frames": 25,
+    "rms": 0.0007,
+    "f0_median": 100.2
+  },
+  {
+    "start": 1.25,
+    "frames": 10,
+    "rms": 0.0037,
+    "f0_median": 99.7
+  },
+  {
+    "start": 1.5,
+    "frames": 18,
+    "rms": 0.0017,
+    "f0_median": 100.2
+  },
+  {
+    "start": 1.75,
+    "frames": 11,
+    "rms": 0.0426,
+    "f0_median": 214.9
+  },
+  {
+    "start": 2.0,
+    "frames": 24,
+    "rms": 0.0915,
+    "f0_median": 325.7
+  },
+  {
+    "start": 2.25,
+    "frames": 25,
+    "rms": 0.0904,
+    "f0_median": 325.7
+  },
+  {
+    "start": 2.5,
+    "frames": 15,
+    "rms": 0.0525,
+    "f0_median": 300.4
+  },
+  {
+    "start": 2.75,
+    "frames": 18,
+    "rms": 0.0673,
+    "f0_median": 307.4
+  },
+  {
+    "start": 3.0,
+    "frames": 23,
+    "rms": 0.1504,
+    "f0_median": 241.2
+  },
+  {
+    "start": 3.25,
+    "frames": 14,
+    "rms": 0.1178,
+    "f0_median": 281.1
+  },
+  {
+    "start": 3.5,
+    "frames": 16,
+    "rms": 0.006,
+    "f0_median": 99.7
+  },
+  {
+    "start": 3.75,
+    "frames": 25,
+    "rms": 0.0007,
+    "f0_median": 100.2
+  },
+  {
+    "start": 4.0,
+    "frames": 13,
+    "rms": 0.089,
+    "f0_median": 302.1
+  },
+  {
+    "start": 4.25,
+    "frames": 19,
+    "rms": 0.0928,
+    "f0_median": 291.8
+  },
+  {
+    "start": 4.5,
+    "frames": 16,
+    "rms": 0.1342,
+    "f0_median": 214.9
+  },
+  {
+    "start": 4.75,
+    "frames": 4,
+    "rms": 0.0699,
+    "f0_median": 231.0
+  },
+  {
+    "start": 5.0,
+    "frames": 0,
+    "rms": 0.0007,
+    "f0_median": null
+  },
+  {
+    "start": 5.25,
+    "frames": 0,
+    "rms": 0.0041,
+    "f0_median": null
+  },
+  {
+    "start": 5.5,
+    "frames": 5,
+    "rms": 0.0004,
+    "f0_median": 99.7
+  },
+  {
+    "start": 5.75,
+    "frames": 1,
+    "rms": 0.0065,
+    "f0_median": 100.8
+  }
+]

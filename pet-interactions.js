@@ -13,7 +13,7 @@ window.createPetInteractions = function ({ say, onCommand, onMood, onCharacterCh
   const skins = {
     anime: {
       name: '鲸鲸', fullName: '大肥鱼（蒂普斯克）', headRatio: .46,
-      dialogue: window.PetDialogue, voiceDirectory: 'assets/voice-dafeiyu',
+      dialogue: window.PetDialogue, voiceDirectory: 'assets/voice-dafeiyu-indextts2-a',
       greeting: '鲸鲸回来啦！吃白米饭，今天想玩什么游戏？',
       alt: '蓝发蓝眼睛、戴白色发饰、穿深蓝裙装的大肥鱼',
       poses: { idle: 'assets/xiaolan.png', wave: 'assets/xiaolan-wave.png', pat: 'assets/xiaolan-pat.png', sleep: 'assets/xiaolan-sleep.png' }
@@ -36,7 +36,8 @@ window.createPetInteractions = function ({ say, onCommand, onMood, onCharacterCh
   let muted = localStorage.getItem('xiaolan-muted') === 'true';
   let action = 'idle', baseMood = 'idle', sleeping = false, actionTimer;
   let listening = false, supported = false, supportCheck = null, waitingSupport = false, micRun = 0, playbackRun = 0;
-  let currentLine = '', previousLines = new Map();
+  let currentLine = '', previousLines = new Map(), chatState = '';
+  const interruptChat = () => document.dispatchEvent(new CustomEvent('pet:interrupt'));
 
   function setPose(pose) {
     currentPose = pose;
@@ -96,12 +97,14 @@ window.createPetInteractions = function ({ say, onCommand, onMood, onCharacterCh
     paintSkin();
     resetPose();
     onCharacterChange();
+    document.dispatchEvent(new CustomEvent('pet:character', { detail: { persona: skin === 'anime' ? 'jingjing' : 'xiaoxiao' } }));
     closeAppearance(true);
     say(skins[skin].greeting, 5500);
   }
   function paintStatus() {
     const label = listening ? (mic.dataset.state === 'listening' ? '· 正在听你说' : '· 麦克风准备中')
-      : !voice.paused ? '· 正在说话' : sleeping ? '· 小憩中' : '';
+      : chatState === 'thinking' ? '· 正在想一想' : chatState === 'waiting' ? '· 正在等回复'
+      : chatState === 'speaking' || !voice.paused ? '· 正在说话' : sleeping ? '· 小憩中' : '';
     if (label) status.textContent = label;
     return label;
   }
@@ -183,6 +186,7 @@ window.createPetInteractions = function ({ say, onCommand, onMood, onCharacterCh
   function respond(id) {
     const line = choose(id);
     if (!line) return false;
+    interruptChat();
     cancelListen();
     stopVoice();
     currentLine = line.text;
@@ -216,6 +220,7 @@ window.createPetInteractions = function ({ say, onCommand, onMood, onCharacterCh
   });
 
   async function listen() {
+    interruptChat();
     if (listening) { cancelListen(); say('这次先不听啦。想聊时再点麦克风。'); return; }
     if (!supported) {
       if (waitingSupport) return;
@@ -284,10 +289,11 @@ window.createPetInteractions = function ({ say, onCommand, onMood, onCharacterCh
     muted = !muted;
     localStorage.setItem('xiaolan-muted', String(muted));
     paintSound();
+    document.dispatchEvent(new CustomEvent('pet:mute', { detail: { muted } }));
     if (muted) { stopVoice(); say('声音关掉了，我会安静地陪着你。'); }
     else respond('hello');
   };
-  const quiet = () => { cancelListen(); stopVoice(); };
+  const quiet = () => { interruptChat(); cancelListen(); stopVoice(); };
   appearanceButton.onclick = () => {
     if (!appearancePanel.hidden) { closeAppearance(true); return; }
     quiet();
@@ -326,6 +332,26 @@ window.createPetInteractions = function ({ say, onCommand, onMood, onCharacterCh
     },
     status: paintStatus,
     characterName: () => skins[skin].name,
+    characterId: () => skin === 'anime' ? 'jingjing' : 'xiaoxiao',
+    isMuted: () => muted,
+    say,
+    animate,
+    stopVoice,
+    prepareChat() { cancelListen(); stopVoice(); clearTimeout(actionTimer); sleeping = false; resetPose(); },
+    setChatState(state) {
+      chatState = state || '';
+      mascot.classList.toggle('thinking', ['thinking', 'waiting'].includes(state));
+      if (!state) mascot.classList.remove('talking');
+      paintStatus();
+    },
+    setChatTalking(level) { mascot.classList.toggle('talking', level > .018); mascot.style.setProperty('--speech-level', String(Math.min(level * 4, 1))); },
+    control(tag) {
+      if (tag.type === 'action' && ['pat', 'dance', 'sleep', 'wake', 'wave'].includes(tag.value)) animate(tag.value === 'wake' ? 'wave' : tag.value);
+      else if (tag.type === 'command') {
+        const id = { 'focus:start': 'focus', 'focus:pause': 'pause', 'list:open': 'open' }[tag.value];
+        if (id) onCommand(id);
+      } else if (tag.type === 'todo' && typeof tag.value === 'string' && tag.value.trim().length <= 160) onCommand('add', tag.value.trim());
+    },
     idleText: count => skin === 'anime'
       ? (count ? '还有 ' + count + ' 件活儿…要不找千问和豆包？' : '吃白米饭，鲸鲸！今天想玩什么游戏？')
       : (count ? '还有 ' + count + ' 件小事，我们一件一件来。' : '很高兴见到你。想聊一聊，还是一起专注？'),

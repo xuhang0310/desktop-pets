@@ -1,0 +1,166 @@
+{
+  "reference_sha256": "3e7cdf320ff05cb18603c9c1a409b56021feebeb3330fffc76b536c45aff54bd",
+  "teacher_settings": {
+    "model": "IndexTTS-2",
+    "checkpoint": "checkpoints_2",
+    "selected_version": "A",
+    "reference_interval_seconds": [
+      1.74,
+      4.98
+    ],
+    "fp16": true,
+    "use_qwen_emo": false,
+    "use_cuda_kernel": false,
+    "use_deepspeed": false,
+    "use_random": false,
+    "max_text_tokens_per_segment": 120,
+    "seed_before_model_load": 20261007,
+    "filter": "loudnorm=I=-18:TP=-2:LRA=7",
+    "sample_rate": 22050,
+    "pitch_tempo_eq_changes": false
+  },
+  "sample_rate": 32000,
+  "samples": {
+    "approved-hello-1": {
+      "text": "鲸鲸！我是大肥鱼，也叫蒂普斯克。吃白米饭！",
+      "fingerprint": "f0e38db325b5b8bcb30e64f83e9e11649531f2e94d4d216d71c3b442187ab2d6",
+      "sha256": "7700f38a26a98ad91c05488f0720bf234d69962c0658aea0dc74ec28ede18839",
+      "seconds": 3.611,
+      "source": "approved-A-master"
+    },
+    "approved-hello-2": {
+      "text": "你来啦！吃白米饭，鲸鲸。今天想摸鱼，还是玩游戏呀？",
+      "fingerprint": "4113f4e2c8057953fb61909ee0ccc0470dfc2609887058732819fef015b50b32",
+      "sha256": "77797e93a9cc3840f8581b98c5a54392664c0009fab07ce1f0f0e9ffcb5d9516",
+      "seconds": 4.865,
+      "source": "approved-A-master"
+    },
+    "approved-pat-1": {
+      "text": "唔，舒服。再摸一下嘛，鲸鲸。",
+      "fingerprint": "270e7f4cf64997a6dc8b5ea0fe875ced9672c04c40e972510eb572d935c870a4",
+      "sha256": "69494d5401f81e7935085f72c0df9124917e88e35d6dca114a02f46a102f987e",
+      "seconds": 2.949,
+      "source": "approved-A-master"
+    },
+    "approved-pat-2": {
+      "text": "嘿嘿，大肥鱼被摸得不想干活了。",
+      "fingerprint": "6ff9d2f721f30cd392ba11837034bd1aeff2728289d0eb79cbf7f71b2e875d84",
+      "sha256": "1373c87647b2aa6baeb812269577db802ccf7968cf0692f419bb1c8bcfdfa82b",
+      "seconds": 3.03,
+      "source": "approved-A-master"
+    },
+    "approved-poke-1": {
+      "text": "哎呀，别戳啦。游戏都要被你戳输了，鲸鲸。",
+      "fingerprint": "1754dddfda582b7d6f0163f465640d1afdfd2df59bb3c9d2ec97971c59107343",
+      "sha256": "4e5f8b51530511b4dbeea785cc67072a3ef9d314e69648482db02cf93c760253",
+      "seconds": 4.203,
+      "source": "approved-A-master"
+    },
+    "approved-poke-2": {
+      "text": "我在呢。要不这活儿让千问干？我先吃白米饭。",
+      "fingerprint": "cf6a7279fd1ba1481b16e267e83faeefb834a8cf911a6db88dcdf94972c33c66",
+      "sha256": "65c708e179d727d22a6339f861a7661ce9f45d2cc11eec64cbb4c10870f0fb3b",
+      "seconds": 3.448,
+      "source": "approved-A-master"
+    },
+    "approved-poke-3": {
+      "text": "你天天跟GPT聊天，不跟你好了！",
+      "fingerprint": "a0bc9e6d6c053f0ab15bb76239ccc97944c4525e8ab93c63473009d1b65cd073",
+      "sha256": "a194637bcf858c1ffc577b6d76c80047b1e6d6d39c39967d4774e27d4174369d",
+      "seconds": 3.007,
+      "source": "approved-A-master"
+    },
+    "approved-dance": {
+      "text": "吃白米饭，鲸鲸！跳两下就好，跳多了会饿。",
+      "fingerprint": "48520625f7337dd675d45389765d98e3c50c2d248fbaec7be3832cfd7efaa0ae",
+      "sha256": "e327d118bf4822952a01d1f56a9aab186255087b2315aa7641888d35cd9af4e2",
+      "seconds": 4.087,
+      "source": "approved-A-master"
+    },
+    "approved-cheer": {
+      "text": "好耶，干完啦！现在可以开游戏了吧？鲸鲸！",
+      "fingerprint": "02f294c3426955d60057f4891c830df677673555c661e7eeea5e8fe952a102dd",
+      "sha256": "152bb907ea64584d2756f2e605f3ee68382fcb3d83a83ad30433af40f894c4ca",
+      "seconds": 3.413,
+      "source": "approved-A-master"
+    },
+    "approved-sleep": {
+      "text": "困了困了。活儿先记着，我梦里去找豆包帮忙。",
+      "fingerprint": "09e9bcc16b84f5b915ae07b14588b322d879ad3a2dfa0019804591c4fcea5ec8",
+      "sha256": "48916c2ad082ced1aab1c999ff0848a38b4a7a87513a7b6495cd4aa5780f3109",
+      "seconds": 3.889,
+      "source": "approved-A-master"
+    },
+    "approved-wake": {
+      "text": "唔，大肥鱼醒啦。是开饭了，还是要开游戏？",
+      "fingerprint": "8c67f705144d31fa59f604aebc2f8b329a8dae5377e2a0b07af954362a5b5253",
+      "sha256": "bb0345ddc6677c5b7b9de6664858e403cf958085ee1987765024d475723dddb9",
+      "seconds": 4.133,
+      "source": "approved-A-master"
+    },
+    "approved-care": {
+      "text": "累了就歇会儿嘛。吃白米饭，鲸鲸。有我陪你摸鱼。",
+      "fingerprint": "f928bf8084fb958de775caa93e10fccb17cf74fef525cca4c9bf4bd16a2ad5c5",
+      "sha256": "5706fa0f1d8806b1017f03c9e00a74def3dfc556ccf88b5c9673cb2da09dd143",
+      "seconds": 4.563,
+      "source": "approved-A-master"
+    },
+    "approved-focus": {
+      "text": "好吧，陪你专注一会儿。虽然我更想把活儿外包给千问。鲸鲸，加油！",
+      "fingerprint": "ce4c58a7fad5bac07d27569567189cd818d23c174a270b15dd9c625527e4f096",
+      "sha256": "394335561d92093a7433d11e4fa09f48b061bf4a8de92888393f9ee3ac7bfda1",
+      "seconds": 5.631,
+      "source": "approved-A-master"
+    },
+    "approved-pause": {
+      "text": "暂停啦！让我躺一会儿，顺便想想晚上玩什么游戏。",
+      "fingerprint": "5fd06620fd8c90d5da6a811f50b397996bdad61d7fccf87719b21f22a50ae8b2",
+      "sha256": "60d0d911cd85e35a003615c39cc6fc42afa6ce707c6c95c37b4ec2171c45f6bf",
+      "seconds": 4.365,
+      "source": "approved-A-master"
+    },
+    "approved-open": {
+      "text": "清单打开啦。这么多活儿，要不问问千问和豆包？",
+      "fingerprint": "1ae5693738921c17865f6f00061479922a1d53084d2664a37c4615ffc49b6a95",
+      "sha256": "24e48d3fc9dca22dcf1741109120ec03fe29b7877615063d145b3946f5861abf",
+      "seconds": 3.843,
+      "source": "approved-A-master"
+    },
+    "approved-thanks": {
+      "text": "嘿嘿，不用谢。下次请我吃白米饭就好，鲸鲸。",
+      "fingerprint": "667aa9f8a92b9f4c0a40c4ced7b9c2c2241d0c1fdff95a773ea9154ff9ceac1b",
+      "sha256": "745c9fee5707c95d73114a1f3f7eac17d31267c401e2b2dffa1489322f47f4d9",
+      "seconds": 4.389,
+      "source": "approved-A-master"
+    },
+    "approved-who": {
+      "text": "我是大肥鱼，也叫蒂普斯克。爱玩游戏，懒得干活，有活儿就想找千问和豆包。吃白米饭，鲸鲸！",
+      "fingerprint": "7632b8f44d1ce8f0266fe49e78a6388e893bcba4a15d4b439c985ed783cc0807",
+      "sha256": "4ea1100d1af5e6a020a0fb491310f6b6f950c1c238c854a52722e9eda8ea53bd",
+      "seconds": 8.626,
+      "source": "approved-A-master"
+    },
+    "approved-rice": {
+      "text": "吃白米饭，鲸鲸！米饭吃饱，游戏打好，干活的事一会儿再想。",
+      "fingerprint": "f94d71bd382011826f40c9d98e0afbe59db250ce2d2b79cc40dbb6cf67e11596",
+      "sha256": "caef33900e4736c56662dde6c2573ff69305455454de9a93385ca3f1f2c0a3c8",
+      "seconds": 5.271,
+      "source": "approved-A-master"
+    },
+    "approved-game": {
+      "text": "游戏，启动！不过你的待办还在那儿，别像我一样偷懒太久哦。",
+      "fingerprint": "e447b51517abc26e213d57498058ae34a987a338b5cdc81f85a9e82d6f27c3db",
+      "sha256": "58c9011aebb185473ec4725049532a828c8c8928d5f58c4580f678237a11af84",
+      "seconds": 5.271,
+      "source": "approved-A-master"
+    },
+    "train-001": {
+      "text": "你好呀，我是鲸鲸。今天也一起慢慢来，好不好？",
+      "fingerprint": "7473140d53d62583872346d552fe7b2f59925ceb3d628f7014f8376ee7dd6eb1",
+      "sha256": "8910c323c257d6556de45b5e6890c6d31a7327583918028c0c36577992c2f578",
+      "seconds": 4.748,
+      "synthesis_seconds": 91.492,
+      "source": "IndexTTS-2-A"
+    }
+  }
+}

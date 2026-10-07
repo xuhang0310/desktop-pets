@@ -40,6 +40,19 @@ app.whenReady().then(async () => {
     await pause(150);
     assert.equal((await run('window.interactionTest.stats()')).voiceCalls, 0, 'Startup never starts microphone');
     assert.equal(await action(), 'idle', 'Startup is quiet');
+    win.webContents.sendInputEvent({ type: 'mouseMove', x: -20, y: -20 });
+    await pause(250);
+    assert.equal(await run("getComputedStyle(document.getElementById('petBubble')).visibility"), 'hidden', 'Idle bubble is hidden');
+    assert.equal(await run("getComputedStyle(document.querySelector('.pet-actions')).visibility"), 'hidden', 'Idle actions are hidden');
+    await shot('quiet');
+    win.webContents.sendInputEvent({ type: 'mouseMove', x: 180, y: 220 });
+    await pause(250);
+    assert.equal(await run("getComputedStyle(document.querySelector('.pet-actions')).visibility"), 'visible', 'Moving near the character reveals actions');
+    assert.equal(await run("getComputedStyle(document.getElementById('petBubble')).visibility"), 'hidden', 'Hover does not bring back idle chatter');
+    await shot('hover');
+    win.webContents.sendInputEvent({ type: 'mouseMove', x: -20, y: -20 });
+    await pause(250);
+    assert.equal(await run("getComputedStyle(document.querySelector('.pet-actions')).visibility"), 'hidden', 'Moving away hides actions');
     for (const name of ['wave', 'pat', 'sleep']) {
       const image = nativeImage.createFromPath(path.join(__dirname, 'assets', `xiaolan-${name}.png`));
       assert(!image.isEmpty(), name + ' image loads');
@@ -51,7 +64,7 @@ app.whenReady().then(async () => {
     // Decode each shipped response with Chromium's actual audio decoder.
     const decoded = await run(`(async () => {
       const context = new AudioContext(); const results = [];
-      for (const [pack, dialogue] of [['voice-dafeiyu-indextts2', PetDialogue], ['voice-human', HumanDialogue]]) {
+      for (const [pack, dialogue] of [['voice-dafeiyu-indextts2-a', PetDialogue], ['voice-human', HumanDialogue]]) {
         for (const line of dialogue) {
           const response = await fetch('assets/' + pack + '/' + line.id + '.mp3');
           const audio = await context.decodeAudioData(await response.arrayBuffer());
@@ -60,9 +73,9 @@ app.whenReady().then(async () => {
       }
       await context.close(); return results;
     })()`);
-    assert.equal(decoded.length, 36);
+    assert.equal(decoded.length, 37);
     assert(decoded.every(item => item.duration > .5 && item.duration < 15), 'All voice lines decode with sensible duration');
-    for (const [pack, globalName] of [['voice-dafeiyu-indextts2', 'PetDialogue'], ['voice-human', 'HumanDialogue']]) {
+    for (const [pack, globalName] of [['voice-dafeiyu-indextts2-a', 'PetDialogue'], ['voice-human', 'HumanDialogue']]) {
       const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, 'assets', pack, 'manifest.json'), 'utf8'));
       assert.deepEqual(await run(globalName), manifest.lines, pack + ' captions match voice manifest');
     }
@@ -70,15 +83,29 @@ app.whenReady().then(async () => {
     const commands = require('./voice-commands.json');
     assert(commands.some(command => command.id === 'hello' && command.phrases.includes('小小你好')));
     assert(commands.some(command => command.id === 'dance' && command.phrases.includes('小小跳个舞')));
-    console.log('PASS 3 transparent poses / 36 decoded voice clips / independent dialogue');
+    console.log('PASS 3 transparent poses / 37 decoded voice clips / independent dialogue');
 
     await run(`(() => { const el = document.getElementById('mascot'), r = el.getBoundingClientRect(); el.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1, clientX: r.x + 120, clientY: r.y + 70 })); })()`);
     assert.equal(await action(), 'pat', 'Head pat');
     await shot('pat');
     assert(await run("document.getElementById('mascot').classList.contains('talking')"), 'Voice playback begins on click');
-    assert(mediaRequests.some(url => /\/voice-dafeiyu-indextts2\/pat-[12]\.mp3$/.test(url)), 'Head click plays the local IndexTTS-2 sample');
-    await run(`(() => { const el = document.getElementById('mascot'), r = el.getBoundingClientRect(); el.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1, clientX: r.x + 120, clientY: r.y + 240 })); })()`);
-    assert(await run("/游戏|千问/.test(document.getElementById('petSpeech').textContent)"), 'Body has a different response');
+    assert.equal(await run("getComputedStyle(document.getElementById('petBubble')).visibility"), 'visible', 'A response reveals its caption');
+    assert(mediaRequests.some(url => /\/voice-dafeiyu-indextts2-a\/pat-[12]\.mp3$/.test(url)), 'Head click plays the approved A sample');
+    const bubbleDeadline = Date.now() + 12000;
+    while (Date.now() < bubbleDeadline && await run("getComputedStyle(document.getElementById('petBubble')).visibility !== 'hidden'")) await pause(150);
+    assert.equal(await run("getComputedStyle(document.getElementById('petBubble')).visibility"), 'hidden', 'Response caption disappears after playback and reading time');
+    // Exercise the new random body reply deterministically, including the real audio request.
+    await run(`(() => {
+      const random = Math.random;
+      try {
+        Math.random = () => .999999;
+        const el = document.getElementById('mascot'), r = el.getBoundingClientRect();
+        el.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1, clientX: r.x + 120, clientY: r.y + 240 }));
+      } finally { Math.random = random; }
+    })()`);
+    assert.equal(await run("document.getElementById('petSpeech').textContent"), '你天天跟GPT聊天，不跟你好了！', 'Body click can choose the requested GPT reply');
+    await pause(180);
+    assert(mediaRequests.some(url => url.endsWith('/voice-dafeiyu-indextts2-a/poke-3.mp3')), 'The GPT reply plays the approved original A clip');
     await click('petDance');
     assert.equal(await action(), 'dance');
     await shot('dance');
@@ -101,6 +128,7 @@ app.whenReady().then(async () => {
 
     await click('petMic');
     assert.equal((await run('window.interactionTest.stats()')).pending, true);
+    assert.equal(await run("getComputedStyle(document.querySelector('.pet-actions')).visibility"), 'visible', 'Listening keeps the stop control available');
     await click('petMic');
     assert.equal((await run('window.interactionTest.stats()')).pending, false, 'Second click cancels');
     await click('petMic');
@@ -141,6 +169,7 @@ app.whenReady().then(async () => {
     assert.equal(await action(), 'sleep');
     await click('petAppearance');
     assert(await run("!document.getElementById('appearancePanel').hidden"), 'Appearance picker opens');
+    assert.equal(await run("getComputedStyle(document.querySelector('.pet-actions')).visibility"), 'visible', 'The open picker keeps actions available');
     await shot('appearance-picker');
     await run("document.querySelector('[data-skin-choice=realistic]').click()");
     await pause(180);
@@ -199,9 +228,10 @@ app.whenReady().then(async () => {
     await win.loadFile(path.join(__dirname, 'index.html'), { query: { s: 'persist' } });
     assert.equal(await run('document.body.dataset.skin'), 'anime', 'Unknown saved appearance falls back safely');
     assert.deepEqual(errors, [], 'No renderer errors');
-    assert(mediaRequests.every(url => /\/(voice-dafeiyu-indextts2|voice-human)\/[^/]+\.mp3$/.test(url)), 'Playback only uses the two current local packs');
+    assert(mediaRequests.every(url => /\/(voice-dafeiyu-indextts2-a|voice-human)\/[^/]+\.mp3$/.test(url)), 'Playback only uses the two current local packs');
     console.log('PASS head/body / dance / sleep/wake / mute / cancel / commands / idempotence');
     console.log('PASS appearance picker / real alpha / interactions / persistence / timer and todo preservation');
+    console.log('PASS idle hiding / hover reveal / caption expiry / listening and picker controls');
     win.destroy(); app.exit(0);
   } catch (error) { console.error(error.stack); console.error(errors); win.destroy(); app.exit(1); }
 });

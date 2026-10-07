@@ -405,6 +405,29 @@
       "synthesis_seconds": 80.726,
       "wav_sha256": "e2fc40a48062c323c6f168c5cb601faffd733c4c155ae51b1196b10bce12bae3",
       "mp3_sha256": "72dc1bd29069d383eeda87050801c65db667778331526584d8cfe309c3b55bb7"
+    },
+    "game": {
+      "id": "game",
+      "text": "游戏，启动！不过你的待办还在那儿，别像我一样偷懒太久哦。",
+      "seed": 20261024,
+      "fingerprint": "f31604cbf587baa56321447b13c4b591362856b62c3d58cdef0b9266bc94c0c8",
+      "wav": {
+        "seconds": 5.224,
+        "sample_rate": 22050,
+        "peak": 0.883331298828125,
+        "rms": 0.17773266307317076,
+        "clipped_fraction": 0.0
+      },
+      "mp3": {
+        "seconds": 5.224,
+        "sample_rate": 22050,
+        "peak": 0.6579632759094238,
+        "rms": 0.1341805545101601,
+        "clipped_fraction": 0.0
+      },
+      "synthesis_seconds": 91.593,
+      "wav_sha256": "ce6fdd427af219bd1512612de2d702359e41aeaf342d2e08230ade25878032e9",
+      "mp3_sha256": "663a1f1caf3da03b027839e0c6f077cb79e9d1d7c2c2bc5712bfb4d7b06d936c"
     }
   },
   "device": "NVIDIA GeForce RTX 5060",

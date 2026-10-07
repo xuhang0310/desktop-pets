@@ -1,4 +1,4 @@
-"""Author Jingjing's local samples with IndexTTS-2; never used by the app at runtime."""
+"""Archive authoring for the first clone. Current A pack: generate-approved-a-voice.py."""
 import argparse
 import hashlib
 import json

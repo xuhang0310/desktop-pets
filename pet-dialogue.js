@@ -1,4 +1,4 @@
-// Authored character dialogue, synchronized with assets/voice-dafeiyu/manifest.json.
+// Authored character dialogue, synchronized with assets/voice-dafeiyu-indextts2-a/manifest.json.
 window.PetDialogue = [
   {
     "id": "hello-1",
@@ -29,6 +29,11 @@ window.PetDialogue = [
     "id": "poke-2",
     "text": "我在呢。要不这活儿让千问干？我先吃白米饭。",
     "action": "pat"
+  },
+  {
+    "id": "poke-3",
+    "text": "你天天跟GPT聊天，不跟你好了！",
+    "action": "wave"
   },
   {
     "id": "dance",

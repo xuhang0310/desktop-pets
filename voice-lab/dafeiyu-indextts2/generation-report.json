@@ -1,0 +1,49 @@
+{
+  "model": "IndexTTS-2",
+  "model_directory": "D:\\workspace\\index-tts2\\checkpoints_2",
+  "device": "NVIDIA GeForce RTX 5060",
+  "fp16": true,
+  "reference": "D:\\workspace\\桌面插件\\todo-widget\\voice-lab\\dafeiyu-indextts2\\reference-opening.wav",
+  "reference_source_interval_seconds": [
+    0.9,
+    5.15
+  ],
+  "reference_visible_subtitles": "你天天跟GPT聊天，不跟你好了",
+  "emotion_mode": "same reference audio",
+  "samples": [
+    {
+      "name": "01-catchphrase",
+      "text": "吃白米饭，鲸鲸！我是大肥鱼，也叫蒂普斯克。",
+      "file": "D:\\workspace\\桌面插件\\todo-widget\\voice-lab\\dafeiyu-indextts2\\01-catchphrase.wav",
+      "seconds": 4.644,
+      "sample_rate": 22050,
+      "peak": 0.92047119140625,
+      "clipped_fraction": 0.0,
+      "synthesis_seconds": 52.235,
+      "real_time_factor": 11.248
+    },
+    {
+      "name": "02-outsourcing",
+      "text": "有活儿呀？让我想想，要不外包给千问和豆包？我还想再玩一会儿游戏呢。",
+      "file": "D:\\workspace\\桌面插件\\todo-widget\\voice-lab\\dafeiyu-indextts2\\02-outsourcing.wav",
+      "seconds": 5.805,
+      "sample_rate": 22050,
+      "peak": 0.930755615234375,
+      "clipped_fraction": 0.0,
+      "synthesis_seconds": 52.751,
+      "real_time_factor": 9.087
+    },
+    {
+      "name": "03-companion",
+      "text": "今天辛苦啦。先喝口水，休息一下，我会在这里陪着你。",
+      "file": "D:\\workspace\\桌面插件\\todo-widget\\voice-lab\\dafeiyu-indextts2\\03-companion.wav",
+      "seconds": 4.807,
+      "sample_rate": 22050,
+      "peak": 0.938751220703125,
+      "clipped_fraction": 0.0,
+      "synthesis_seconds": 56.119,
+      "real_time_factor": 11.676
+    }
+  ],
+  "load_seconds": 20.826
+}

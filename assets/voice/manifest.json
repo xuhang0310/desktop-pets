@@ -1,0 +1,87 @@
+{
+  "voice": "zh-CN-XiaoyiNeural",
+  "rate": "+8%",
+  "pitch": "+32Hz",
+  "lines": [
+    {
+      "id": "hello-1",
+      "text": "嗨，我是小蓝。今天也陪着你呀。",
+      "action": "wave"
+    },
+    {
+      "id": "hello-2",
+      "text": "你来啦！要一起做点什么呢？",
+      "action": "wave"
+    },
+    {
+      "id": "pat-1",
+      "text": "嗯，摸摸头，好开心呀。",
+      "action": "pat"
+    },
+    {
+      "id": "pat-2",
+      "text": "头发要被你揉乱啦，嘿嘿。",
+      "action": "pat"
+    },
+    {
+      "id": "poke-1",
+      "text": "哎呀，抓到你啦。要和小蓝一起玩吗？",
+      "action": "wave"
+    },
+    {
+      "id": "poke-2",
+      "text": "我在呢，我在呢。别戳啦，有点痒。",
+      "action": "pat"
+    },
+    {
+      "id": "dance",
+      "text": "收到！给你跳一小段。啦啦啦，心情变好啦。",
+      "action": "dance"
+    },
+    {
+      "id": "cheer",
+      "text": "好耶！你也太棒了吧。",
+      "action": "dance"
+    },
+    {
+      "id": "sleep",
+      "text": "呜，有一点点困。陪我安静一会儿吧。",
+      "action": "sleep"
+    },
+    {
+      "id": "wake",
+      "text": "唔，小蓝醒啦。现在元气满满。",
+      "action": "wave"
+    },
+    {
+      "id": "care",
+      "text": "辛苦啦。伸个懒腰，喝口水，小蓝陪着你。",
+      "action": "pat"
+    },
+    {
+      "id": "focus",
+      "text": "好的，我会乖乖陪你专注。一起加油吧。",
+      "action": "pat"
+    },
+    {
+      "id": "pause",
+      "text": "已经暂停啦。休息一下也很好哦。",
+      "action": "sleep"
+    },
+    {
+      "id": "open",
+      "text": "清单打开啦。我们一件一件完成。",
+      "action": "wave"
+    },
+    {
+      "id": "thanks",
+      "text": "嘿嘿，不用客气。喜欢和你待在一起。",
+      "action": "pat"
+    },
+    {
+      "id": "who",
+      "text": "我是小蓝，你的桌面小伙伴。可以摸摸头，或者叫我跳个舞。",
+      "action": "wave"
+    }
+  ]
+}

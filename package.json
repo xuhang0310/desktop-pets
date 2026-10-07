@@ -1,0 +1,16 @@
+{
+  "name": "todo-widget",
+  "version": "1.0.0",
+  "description": "鲸鲸与小小 · 桌面伙伴、语音互动、待办与专注计时",
+  "main": "main.js",
+  "scripts": {
+    "start": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/voice-host.ps1 -ElectronPath node_modules/electron/dist/electron.exe -AppDirectory .",
+    "test": "electron test-shot.js --no-sandbox",
+    "test:native": "electron native-check.js --no-sandbox",
+    "test:interaction": "electron interaction-check.js --no-sandbox",
+    "test:voice": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/voice-host.ps1 -ElectronPath node_modules/electron/dist/electron.exe -AppDirectory . -Probe"
+  },
+  "dependencies": {
+    "electron": "^44.5.1"
+  }
+}

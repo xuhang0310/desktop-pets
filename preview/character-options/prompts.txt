@@ -1,0 +1,39 @@
+# 真人伙伴形象备选
+
+生成方式：内置 ImageGen。三款独立生成，只作选型预览，未接入运行中的应用。
+
+## 01 · 清甜灵动
+
+Use case: photorealistic-natural.
+Asset type: an individual character design candidate for a desktop companion, waist-up photographic portrait.
+Primary request: Create one exceptionally beautiful, fictional East Asian adult woman, around 21–23 years old. A compelling, memorable face with finely balanced features, expressive eyes, and the visual appeal of a leading actress in a high-end contemporary beauty campaign. This is a separate human character, unrelated to the blue-haired anime mascot.
+Style: convincingly real editorial portrait photography, refined but believable facial anatomy, fine natural skin texture, realistic eyes and eyelashes, subtly polished makeup. Not anime, not a doll or 3D render.
+Framing: vertical 2:3 composition, head through waist only; full hair and shoulders comfortably inside the frame, face large and clearly readable, subject centered, eyes meeting the viewer. Simple relaxed posture, arms resting naturally at the sides, hands outside the lower crop.
+Lighting: exquisite soft studio daylight, clear flattering facial modelling, restrained catchlights, neutral accurate skin tones.
+Background: genuine transparent alpha, isolated woman with clean hair edges, no scenery or studio backdrop.
+Absolute constraints: NO jewelry of any kind. Bare ears and bare neck. No earrings, ear studs, ear cuffs, necklaces, pendants, chokers, bracelets, rings, watches, brooches, hair jewels, decorative pins, or metallic accessories. No accessories added to clothing. No logos, no text, no watermarks. Modest fully clothed portrait. Avoid waxy skin, exaggerated cosmetic-surgery features, overlarge eyes, heavy airbrushing and excessive cleavage.
+Distinct character direction: warm, bright and delightfully charming. Long glossy straight black hair with delicate airy bangs and soft strands framing the cheeks. A softly oval face, lively dark-brown eyes, naturally full lips, a gentle almost-laughing closed-mouth smile with a hint of dimples. Plain pale-cream fine-knit short-sleeve top with a simple rounded neckline, no embellishment. Fresh peach-toned makeup. Relaxed front-facing pose with a tiny head tilt; approachable, luminous beauty.
+
+## 02 · 明艳优雅
+
+Use case: photorealistic-natural.
+Asset type: an individual character design candidate for a desktop companion, waist-up photographic portrait.
+Primary request: Create one exceptionally beautiful, fictional East Asian adult woman, around 21–23 years old. A compelling, memorable face with finely balanced features, expressive eyes, and the visual appeal of a leading actress in a high-end contemporary beauty campaign. This is a separate human character, unrelated to the blue-haired anime mascot.
+Style: convincingly real editorial portrait photography, refined but believable facial anatomy, fine natural skin texture, realistic eyes and eyelashes, subtly polished makeup. Not anime, not a doll or 3D render.
+Framing: vertical 2:3 composition, head through waist only; full hair and shoulders comfortably inside the frame, face large and clearly readable, subject centered, eyes meeting the viewer. Simple relaxed posture, arms resting naturally at the sides, hands outside the lower crop.
+Lighting: exquisite soft studio daylight, clear flattering facial modelling, restrained catchlights, neutral accurate skin tones.
+Background: genuine transparent alpha, isolated woman with clean hair edges, no scenery or studio backdrop.
+Absolute constraints: NO jewelry of any kind. Bare ears and bare neck. No earrings, ear studs, ear cuffs, necklaces, pendants, chokers, bracelets, rings, watches, brooches, hair jewels, decorative pins, or metallic accessories. No accessories added to clothing. No logos, no text, no watermarks. Modest fully clothed portrait. Avoid waxy skin, exaggerated cosmetic-surgery features, overlarge eyes, heavy airbrushing and excessive cleavage.
+Distinct character direction: striking, glamorous, confident, elegant. Long voluminous dark-chestnut waves with a graceful side part, completely different silhouette and facial identity from a sweet straight-haired woman. Refined heart-shaped face, sculpted but softly natural cheekbones, captivating almond eyes, beautifully arched natural eyebrows, subtle rose-red lips with a small warm confident smile. Plain elegant black boat-neck blouse with ordinary sleeves and modest coverage, no decoration whatsoever. Sophisticated rose-toned makeup, no heavy smoky eyes. Torso turned slightly three quarters, face toward camera; memorable cinematic beauty.
+
+## 03 · 清冷气质
+
+Use case: photorealistic-natural.
+Asset type: an individual character design candidate for a desktop companion, waist-up photographic portrait.
+Primary request: Create one exceptionally beautiful, fictional East Asian adult woman, around 21–23 years old. A compelling, memorable face with finely balanced features, expressive eyes, and the visual appeal of a leading actress in a high-end contemporary beauty campaign. This is a separate human character, unrelated to the blue-haired anime mascot.
+Style: convincingly real editorial portrait photography, refined but believable facial anatomy, fine natural skin texture, realistic eyes and eyelashes, subtly polished makeup. Not anime, not a doll or 3D render.
+Framing: vertical 2:3 composition, head through waist only; full hair and shoulders comfortably inside the frame, face large and clearly readable, subject centered, eyes meeting the viewer. Simple relaxed posture, arms resting naturally at the sides, hands outside the lower crop.
+Lighting: exquisite soft studio daylight, clear flattering facial modelling, restrained catchlights, neutral accurate skin tones.
+Background: genuine transparent alpha, isolated woman with clean hair edges, no scenery or studio backdrop.
+Absolute constraints: NO jewelry of any kind. Bare ears and bare neck. No earrings, ear studs, ear cuffs, necklaces, pendants, chokers, bracelets, rings, watches, brooches, hair jewels, decorative pins, or metallic accessories. No accessories added to clothing. No logos, no text, no watermarks. Modest fully clothed portrait. Avoid waxy skin, exaggerated cosmetic-surgery features, overlarge eyes, heavy airbrushing and excessive cleavage.
+Distinct character direction: breathtaking understated beauty, composed, intelligent and modern. Sleek chin-to-shoulder-length jet-black bob, softly curved ends, off-center part, no bangs or hair accessories. A refined elongated oval face with a delicate jawline, clear almond eyes with subtle elongated corners, elegant straight nose, soft nude-rose lips, poised slight smile and a gentle gaze. Plain pale-blue tailored cotton shirt, sleeves, collar open just one button with full modest coverage. Minimal translucent makeup. Front-facing shoulders with the head very slightly angled, crisp and graceful; a distinct short-haired face rather than the same woman with different clothing.

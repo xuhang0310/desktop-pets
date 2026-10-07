@@ -1,0 +1,34 @@
+/* The bottom native drag strip deliberately remains unchanged. */
+.pet-actions { position: absolute; z-index: 5; left: 9px; top: 137px; display: flex; flex-direction: column; gap: 9px; }
+.pet-action { width: 48px; min-height: 47px; padding: 7px 2px 5px; display: flex; flex-direction: column; align-items: center; gap: 3px; border: 1px solid var(--line); border-radius: 15px; background: var(--paper); color: var(--blue-deep); box-shadow: 0 3px 10px -5px var(--shadow); cursor: pointer; transition: transform .18s, background .18s; }
+.pet-action:hover { transform: translateX(3px); background: var(--pink-soft); }
+.pet-action svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.pet-action span { font-size: 9px; line-height: 1.3; letter-spacing: .3px; }
+.pet-action:disabled { opacity: .5; cursor: wait; }
+.pet-action.unavailable { color: var(--ink-soft); }
+.pet-action.listening { color: #fff; background: #4a78bc; border-color: #4a78bc; animation: mic-glow 1.5s ease-in-out infinite; }
+@keyframes mic-glow { 50% { box-shadow: 0 0 0 5px rgba(75,121,203,.14); } }
+#petSound .sound-off, #petSound.muted .sound-on { display: none; }
+#petSound.muted .sound-off { display: block; }
+.speech-label { min-height: 15px; }
+.speech-label .voice-bars { margin-left: auto; display: flex; align-items: center; gap: 2px; height: 10px; opacity: 0; }
+.voice-bars i { width: 2px; height: 4px; border-radius: 2px; background: var(--blue); }
+.companion:has(.talking) .voice-bars { opacity: 1; }
+.companion:has(.talking) .voice-bars i { animation: voice-bar .55s ease-in-out infinite alternate; }
+.voice-bars i:nth-child(2) { animation-delay: .15s !important; }
+.voice-bars i:nth-child(3) { animation-delay: .3s !important; }
+@keyframes voice-bar { to { height: 10px; } }
+.mascot[data-action="wave"] .character-art { animation: pet-wave 1s ease-in-out 3; }
+.mascot[data-action="pat"] .character-art { animation: pet-pat 1.05s ease-in-out 3; }
+.mascot[data-action="dance"] .character-art { animation: pet-dance .85s ease-in-out 6; }
+.mascot[data-action="sleep"] .character-art { animation: pet-sleep 5s ease-in-out infinite; }
+.mascot[data-action="sleep"] .zzz { opacity: 1; }
+@keyframes pet-wave { 0%,100% { transform: rotate(0); } 35% { transform: translateY(-7px) rotate(-3deg); } 70% { transform: translateY(-2px) rotate(3deg); } }
+@keyframes pet-pat { 0%,100% { transform: rotate(-1deg) scale(1); } 50% { transform: translateY(4px) rotate(2deg) scale(1.025,.975); } }
+@keyframes pet-dance { 0%,100% { transform: translateX(-5px) rotate(-5deg); } 25% { transform: translateY(-13px) rotate(0); } 50% { transform: translateX(6px) rotate(5deg); } 75% { transform: translateY(-7px) rotate(0); } }
+@keyframes pet-sleep { 0%,100% { transform: translateY(2px) rotate(-2deg); } 50% { transform: translateY(5px) rotate(-1deg) scale(1.01,.99); } }
+.pet-particles { position: absolute; z-index: 6; left: 180px; top: 171px; pointer-events: none; }
+.pet-particles i { position: absolute; color: #db8faa; font-style: normal; font-size: 16px; opacity: 0; animation: pet-mote 1.3s ease-out var(--delay) forwards; }
+.companion:has([data-action="dance"]) .pet-particles i, .companion:has([data-action="wave"]) .pet-particles i { color: #d6ae62; }
+@keyframes pet-mote { 15% { opacity: .95; } 100% { opacity: 0; transform: translate(var(--x), -72px) rotate(var(--r)) scale(.55); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

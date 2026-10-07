@@ -1,0 +1,13 @@
+Generated with built-in ImageGen; transparent_background=true.
+
+Output: assets/xiaolan-wave.png
+Edit target: the supplied isolated blue-haired character sprite. Preserve EXACT character identity, same hair shape/color, face proportions, navy-and-white star maid outfit, stockings and shoes, polished 3D anime figurine rendering. Produce ONE full-body sprite with actual transparent alpha, all hair and shoes visible, centered with a small safety margin. Match the reference's full-body framing, body size and 2.7-head cute proportions so it can swap in place as an animation state. No text, no logo, no props, no background, no ground, no second character.
+Change only her gesture and expression: a cheerful hello pose, right hand lifted beside her head waving with relaxed open fingers, left hand holding the skirt gently. Big friendly smile with slightly open mouth, bright sparkling blue eyes. Keep feet close together and level with reference.
+
+Output: assets/xiaolan-pat.png
+Edit target: the supplied isolated blue-haired character sprite. Preserve EXACT character identity, same hair shape/color, face proportions, navy-and-white star maid outfit, stockings and shoes, polished 3D anime figurine rendering. Produce ONE full-body sprite with actual transparent alpha, all hair and shoes visible, centered with a small safety margin. Match the reference's full-body framing, body size and 2.7-head cute proportions so it can swap in place as an animation state. No text, no logo, no props, no background, no ground, no second character.
+Change only gesture and expression: delighted shy head-pat reaction, eyes closed into happy crescents, warm blush, tiny happy smile, chin slightly tucked, both hands drawn gently near her collar/chest. Keep standing with feet together, no crouching, head position and overall silhouette close to the reference.
+
+Output: assets/xiaolan-sleep.png
+Edit target: the supplied isolated blue-haired character sprite. Preserve EXACT character identity, same hair shape/color, face proportions, navy-and-white star maid outfit, stockings and shoes, polished 3D anime figurine rendering. Produce ONE full-body sprite with actual transparent alpha, all hair and shoes visible, centered with a small safety margin. Match the reference's full-body framing, body size and 2.7-head cute proportions so it can swap in place as an animation state. No text, no logo, no props, no background, no ground, no second character.
+Change only gesture and expression: sleepy cozy pose, eyes softly closed, one small hand near her cheek, slight head tilt, peaceful smile, other arm relaxed at her waist. Keep standing with feet together, no lying down, same full-body framing.

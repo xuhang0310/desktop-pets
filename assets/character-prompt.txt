@@ -1,0 +1,10 @@
+Generation mode: Built-in image_gen (transparent_background: true)
+Output: assets/xiaolan.png
+Reference: user-supplied blue-haired cartoon maid screenshot
+
++Use case: stylized-concept
+Asset type: transparent full-body character sprite for a Windows desktop companion.
+Input image 1 is a character/style reference only. Generate a NEW standalone full-body version of this blue-haired anime maid girl, keeping her recognizable cobalt blue long twin tails, large bright blue eyes, white frilled maid headband, dark navy bows, small blue jewel brooch, navy-and-white modest maid dress with subtle star details, and the soft polished 3D anime figurine look.
+Composition: ONE character, entire body including hair tips and shoes visible, front-facing with a slight friendly head tilt. Chibi proportions around 2.7 heads tall, oversized cute head, small body, relaxed standing pose, one hand raised near her chest in a small welcoming gesture, other resting on her skirt. White stockings and navy rounded shoes. Keep all hair and clothes inside canvas with a small clear margin. Character occupies most of the vertical image.
+Lighting: soft studio lighting, rich deep blue hair with silky highlights, delicate warm blush, clean high-quality sculpted details. Friendly closed-mouth smile.
+Background: truly transparent alpha. No floor, no environment, no card, no text, no UI, no phone screenshot, no logo, no watermark, no duplicate poses, no solid or checkerboard backdrop. This is an isolated reusable production character sprite.

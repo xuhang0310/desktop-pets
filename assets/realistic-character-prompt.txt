@@ -1,0 +1,11 @@
+Generated with the built-in ImageGen tool. One original fictional adult character, created for this project. Output uses its original alpha channel.
+
+Use case: photorealistic-natural
+Asset type: transparent PNG full-body character cutout for a desktop companion application.
+Primary request: Create one exceptionally beautiful fictional East Asian adult woman, about 20 years old, photographed realistically, as a new selectable human appearance for the character 大肥鱼 / 蒂普斯克.
+Subject: A clearly adult 20-year-old East Asian woman with graceful natural human proportions, refined harmonious facial features, luminous dark brown eyes, delicately shaped eyebrows, a soft friendly closed-lip smile, healthy natural skin texture, understated fresh makeup. Long glossy dark brown-black hair with a gentle wave, partly tucked behind one ear, one small powder-blue hair clip. Distinctive, captivating yet approachable beauty, elegant and warm.
+Clothing: ivory fine-knit fitted cardigan with small pearl-like buttons, a softly flowing powder-blue A-line skirt reaching just below the knees, simple ivory low-heeled Mary Jane shoes. Fully dressed, refined everyday fashion. No logos or text.
+Pose and framing: full body, entire head, hair, both hands and both shoes visible with small clear margins; one person only, centered in a tall portrait composition. Facing viewer, relaxed standing posture, slight natural weight shift, arms resting near her waist with one hand lightly holding the opposite wrist, anatomically correct hands. Clean readable silhouette, natural human head-to-body ratio, no chibi proportions.
+Lighting and style: high-end natural editorial photography, soft diffused daylight, subtly dimensional but even lighting, realistic hair strands, fabric knit texture and skin pores, a sharp beautiful face, restrained retouching. Looks like a real photographed person, NOT anime, NOT illustration, NOT a 3D toy or doll.
+Background: genuine transparent alpha everywhere outside the woman, clean antialiased cutout including hair edges, no floor, no cast shadow backdrop, no scenery, no rectangular white or gray background, no checkerboard pattern drawn into the image.
+Constraints: original fictional adult identity, natural anatomy, no extra people, no props, no text, no watermark, no UI. Preserve actual transparency for direct use as a desktop sprite.

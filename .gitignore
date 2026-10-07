@@ -1,0 +1,14 @@
+# 依赖与运行时
+node_modules/
+
+# 便携数据目录与测试 profile
+data/
+.shot-profile/
+preview/*-profile/
+preview/bridge-runs/
+preview/bridge-result.json
+
+# 日志与本地残留
+*.log
+shot-*.png
+tray.png.bak

@@ -1,0 +1,31 @@
+鲸鲸 / 大肥鱼 — IndexTTS-2 本地复刻语音
+
+视频由 E:\workspace\douyin-video-analysis\backend\app\services\douyin.py 下载。
+原视频：E:\workspace\douyin-video-analysis\downloads\jingjing-7691408979201434728\source.mp4
+来源：https://v.douyin.com/qIdt3_8KC0A/
+参考音频：reference-opening.wav，对应视频 0.90–5.15 秒，画面字幕为“你天天跟GPT聊天，不跟你好了”。
+处理：转为 24kHz 单声道 WAV，响度归一化；没有运行人声分离模型。
+
+模型：D:\workspace\index-tts2\checkpoints_2，IndexTTS-2，FP16。
+合成完全在本机完成；未更改 IndexTTS2 安装环境或模型权重。
+音色与情感均使用同一段参考音频；use_qwen_emo=False。
+
+01-catchphrase.wav：吃白米饭，鲸鲸！我是大肥鱼，也叫蒂普斯克。
+02-outsourcing.wav：有活儿呀？让我想想，要不外包给千问和豆包？我还想再玩一会儿游戏呢。
+03-companion.wav：今天辛苦啦。先喝口水，休息一下，我会在这里陪着你。
+
+generation-report.json 保存每段文本、时长、峰值、削波比例和生成耗时。
+本次音频长约 4.6–5.8 秒，单段生成约 52–56 秒。其他桌面/GPU应用仍在运行，未做独占显卡或实时推理优化；此结果不是该显卡的最佳性能。
+已验证文件可解码、数值正常且没有满幅削波；音色相似度与发音需实际试听评估。
+Windows 旧版听写引擎对此参考音频置信度很低，其结果不用于验收合成内容。
+
+以上三段是用户确认音色前的试听样本。正式语音包沿用同一参考音频和推理设置，完整保留桌面伙伴原有 18 段对白。
+正式播放目录：../../assets/voice-dafeiyu-indextts2/；桌面伙伴直接播放其中的本地 MP3，不需要运行模型。
+无损母版：pack-masters/；逐段文本、生成参数、音频指标和文件 SHA256：pack-generation-report.json。
+MP3 使用 FFmpeg 统一响度至 -18 LUFS、真峰值目标 -2 dB，避免切换对白时音量忽大忽小。
+小小使用自己的 voice-human 语音包，不使用鲸鲸的音色。
+
+重新生成正式语音：使用 D:\workspace\index-tts2\.venv\Scripts\python.exe 运行 ../../scripts/generate-indextts-voice.py。
+默认跳过文本、参考音频、设置及文件校验值均一致的片段；可用 --line hello-1 --force 指定重做。
+重新生成原有三段试听：同一个 Python 运行本目录 generate_samples.py。
+请先确认显卡没有正在执行的其他生成任务；脚本结束后会释放自己的模型资源。

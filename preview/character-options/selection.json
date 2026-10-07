@@ -1,0 +1,9 @@
+{
+  "selected": "02-radiant.png",
+  "asset": "../../assets/human-selected-black.png",
+  "description": "用户选定：黑色衣服、长卷发、无首饰的真人半身像。",
+  "identity": "小小，独立于鲸鲸的真人伙伴。",
+  "status": "已作为小小接入形象切换、独立对白、自然女声和点击／短口令互动。",
+  "promptSource": "prompts.txt — 02 · 明艳优雅",
+  "generator": "built-in ImageGen"
+}
